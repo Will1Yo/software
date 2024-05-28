@@ -1,0 +1,80 @@
+
+.file-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+    width: 70%;
+}
+
+.line-numbers {
+    counter-reset: line-number;
+    text-align: left;
+}
+
+.line {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.line-number {
+    text-align: left;
+    display: inline-block;
+    width: 30px; /* Ajusta el ancho según sea necesario */
+    text-align: right;
+    padding-right: 10px;
+    margin-right: 10px;
+    color: #888;
+    border-right: 1px solid #ddd;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between; /* Espacia los contenedores */
+    width: 100%;
+    max-width: 1340px; /* Ajusta el ancho máximo según tus necesidades */
+}
+.container-right {
+     /* Elimina el float y el margen derecho */
+     float: none;
+     margin-right: 0;
+     /* Agrega posición fija */
+     position: fixed;
+     top: 0; /* Ajusta según sea necesario */
+     bottom: 0; /* Ajusta según sea necesario */
+     left: 0; /* Ajusta según sea necesario */
+     width: 40%; /* Ajusta el ancho según sea necesario */
+     max-width: 325px; /* Ajusta el ancho máximo según sea necesario */
+     background-color: #f0f0f0; /* Color de fondo */
+     padding: 10px; /* Espaciado interno */
+     overflow-y: auto;
+     /* Elimina la altura del 100% */
+     /* height: 100%; */
+}
+
+.container-right ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+}
+.container-right li {
+    white-space: nowrap; /* Evita que el texto se envuelva a la siguiente línea */
+    overflow: hidden; /* Oculta el texto que se desborda */
+    text-overflow: ellipsis; /* Muestra "..." para el texto que se desborda */
+    width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
+}
+.container-center {
+      /* Reduce el ancho para dar espacio al contenedor derecho */
+      width: calc(100% - 25%); /* Resta el ancho del contenedor derecho */
+      /* Agrega un margen izquierdo para centrar el contenedor */
+      margin-left: 25%; /* Igual al ancho del contenedor derecho */
+      background-color: #fff; /* Fondo blanco para el contenedor central */
+      padding: 10px; /* Espaciado interno */
+}
+.responsive-img {
+    max-width: 100%; /* La imagen no será más ancha que el contenedor */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+}
