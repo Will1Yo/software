@@ -1,6 +1,10 @@
 @section('title')
     View
 @endsection
+@section('custom-css')
+<link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+<!-- Puedes agregar más archivos CSS específicos aquí -->
+@endsection
 <x-header-footer>
     <div class="main-container">
         <div class="list-group container-right">
@@ -26,7 +30,11 @@
                                         @endphp
                                         @if (strpos($files_path, $array->ruta) !== false)
                                             @if($files_show== $path_file)
-                                            <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $files_show}}</li></a>
+                                                @if ($id_files == $files_id)
+                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-success"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $files_show}}<i class="fa-solid fa-eye" style="text-align: left; float: right;"></i></li></a>
+                                                @else
+                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $files_show}}<i class="fa-solid fa-eye-slash" style="text-align: left; float: right;"></i></li></a>
+                                                @endif
                                             @endif 
                                         @endif     
                                     @endforeach
@@ -46,56 +54,69 @@
                         @endphp
                         <ul class="list-group">
                             @if ($array->files == $file_path)
-                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $file_path}}</li></a>
+                                @if ($id_files == $files_id)
+                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-success"><i class="fa-solid fa-file" ></i>&nbsp;&nbsp;{{ $file_path}}<i class="fa-solid fa-eye" style="text-align: left; float: right;"></i></li></a>
+                                @else
+                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $file_path}}<i class="fa-solid fa-eye-slash" style="text-align: left; float: right;"></i></li></a>
+                                @endif
                             @endif
                         </ul>  
                     @endforeach
                 @endif
             @endforeach
             <div class="mt-3">
-                <a href="/" class="btn btn-primary" tabindex="-1" role="button" ><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Página de Inicio</a>
+                <a href="/files/index/{{$id_repo}}" class="btn btn-primary" tabindex="-1" role="button" ><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Atrás</a>
+                &nbsp;&nbsp;
+                <a href="/" class="btn btn-primary" tabindex="-1" role="button" ><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Página de Inicio</a>
             </div>
         </div>
         <div class="container-center container-lg file-container text-left">
-            @php
-                // Obtener la ruta del archivo de manera segura
-                $path_filtered = str_replace("public\\", "", $files_open->path);
-                $filePath = public_path($path_filtered);
-                
-        
-                // Función para verificar si el archivo es una imagen
-                function isImage($filePath) {
-                    $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'];
-                    $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-                    return in_array($extension, $imageExtensions);
-                }
-        
-                // Verificar si el archivo existe
-                if (file_exists($filePath)) {
-                    // Si el archivo es una imagen, mostrar la imagen
-                    if (isImage($filePath)) {
-                        $imageUrl = asset($path_filtered); // Obtener la URL pública de la imagen
-                         echo '<img src="'.$imageUrl.'" alt="Imagen" class="img-fluid responsive-img">';
-                    } else {
-                        // Obtener el contenido del archivo
-                        $fileContent = file_get_contents($filePath);
-        
-                        // Separar el contenido por líneas y eliminar espacios en blanco al inicio y fin de cada línea
-                        $lines = explode("\n", htmlspecialchars($fileContent));
-                        $lines = array_map('trim', $lines);
-        
-                        // Mostrar cada línea con numeración
-                        echo '<pre class="line-numbers">';
-                        foreach ($lines as $lineNumber => $lineContent) {
-                            echo '<span class="line"><span class="line-number">' . ($lineNumber + 1) . '</span> ' . $lineContent . '</span>';
-                        }
-                        echo '</pre>';
+            @if ($files_open == "Folder")
+                <h1 style="text-align: center">Visualización de Repositorio {{$repository_description->name_repo}}</h1>
+            @else
+                @php
+                    // Obtener la ruta del archivo de manera segura
+                    $path_filtered = str_replace("public\\", "", $files_open->path);
+                    $filePath = public_path($path_filtered);
+                    
+            
+                    // Función para verificar si el archivo es una imagen
+                    function isImage($filePath) {
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'];
+                        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                        return in_array($extension, $imageExtensions);
                     }
-                } else {
-                    echo "<p>El archivo no existe o la ruta es incorrecta.</p>";
-                }
-            @endphp
+            
+                    // Verificar si el archivo existe
+                    if (file_exists($filePath)) {
+                        // Si el archivo es una imagen, mostrar la imagen
+                        if (isImage($filePath)) {
+                            $imageUrl = asset($path_filtered); // Obtener la URL pública de la imagen
+                            echo '<img src="'.$imageUrl.'" alt="Imagen" class="img-fluid responsive-img">';
+                        } else {
+                            // Obtener el contenido del archivo
+                            $fileContent = file_get_contents($filePath);
+            
+                            // Separar el contenido por líneas y eliminar espacios en blanco al inicio y fin de cada línea
+                            $lines = explode("\n", htmlspecialchars($fileContent));
+                            $lines = array_map('trim', $lines);
+            
+                            // Mostrar cada línea con numeración
+                            echo '<pre class="line-numbers">';
+                            foreach ($lines as $lineNumber => $lineContent) {
+                                echo '<span class="line"><span class="line-number">' . ($lineNumber + 1) . '</span> ' . $lineContent . '</span>';
+                            }
+                            echo '</pre>';
+                        }
+                    } else {
+                        echo "<p>El archivo no existe o la ruta es incorrecta.</p>";
+                    }
+                @endphp
+            @endif
         </div>
-        
     </div>
+    @section('custom-js')
+        <script src="{{ asset('js/custom.js') }}"></script>
+        <!-- Puedes agregar más archivos JS específicos aquí -->
+    @endsection
 </x-header-footer>

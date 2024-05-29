@@ -15,4 +15,5 @@ Route::post('/repositories/view', [FilesController::class, 'store']);
 Route::get('/files/index/{file}', [FilesController::class, 'index']);
 Route::get('/files/view/{id}/{file}', [FilesController::class, 'show']);
 Route::get('/files/view/{file}', [FilesController::class, 'show']);
+Route::get('/check-repo-name', [RepositoriesController::class, 'checkRepoName'])->name('checkRepoName');
 

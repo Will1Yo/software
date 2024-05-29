@@ -1,4 +1,6 @@
-
+/*////////////////////////////////////////////////////
+CSS de mi vista files.view 
+///////////////////////////////////////////////////*/
 .file-container {
     background-color: #f4f4f4;
     padding: 20px;
@@ -45,8 +47,8 @@
      top: 0; /* Ajusta según sea necesario */
      bottom: 0; /* Ajusta según sea necesario */
      left: 0; /* Ajusta según sea necesario */
-     width: 40%; /* Ajusta el ancho según sea necesario */
-     max-width: 325px; /* Ajusta el ancho máximo según sea necesario */
+     width: 30%; /* Ajusta el ancho según sea necesario */
+     max-width: 320px; /* Ajusta el ancho máximo según sea necesario */
      background-color: #f0f0f0; /* Color de fondo */
      padding: 10px; /* Espaciado interno */
      overflow-y: auto;
@@ -68,13 +70,46 @@
 }
 .container-center {
       /* Reduce el ancho para dar espacio al contenedor derecho */
-      width: calc(100% - 25%); /* Resta el ancho del contenedor derecho */
+      width: calc(100% - 24%); /* Resta el ancho del contenedor derecho */
       /* Agrega un margen izquierdo para centrar el contenedor */
-      margin-left: 25%; /* Igual al ancho del contenedor derecho */
+      margin-left: 24%; /* Igual al ancho del contenedor derecho */
       background-color: #fff; /* Fondo blanco para el contenedor central */
       padding: 10px; /* Espaciado interno */
 }
 .responsive-img {
     max-width: 100%; /* La imagen no será más ancha que el contenedor */
     height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+}
+
+/*////////////////////////////////////////////////////
+CSS de mi vista files.index 
+///////////////////////////////////////////////////*/
+
+.i_update{
+    text-align: left;
+    float: right;
+    padding-right: 1%;
+}
+
+.i_folder{
+    text-align: left;
+    float: right;
+}
+
+.i_file{
+    text-align: center;
+    padding-left: 10%;
+}
+
+
+.li_responsive{
+    white-space: nowrap; /* Evita que el texto se envuelva a la siguiente línea */
+    overflow: hidden; /* Oculta el texto que se desborda */
+    text-overflow: ellipsis; /* Muestra "..." para el texto que se desborda */
+    width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
+}
+
+.text_description {
+    overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
+    resize: none; /* Deshabilitar el redimensionamiento manual por parte del usuario */
 }

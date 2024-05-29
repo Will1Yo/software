@@ -23,31 +23,54 @@ class FilesController extends Controller
 
     public function show($id_repo, $id_files = null ,$path = null){
         $files = Files::where('id_repo', $id_repo)->get();
-        $repository_description = Repositories::select('description','restriction')->find($id_repo);
-        $files_description = Files::select('update_comment')->where('id_repo', $id_repo)->first();
-        $files_open = Files::select('path')->find($id_files);
+        $repository_description = Repositories::select('description','restriction', 'name_repo')->find($id_repo);
+        $array_commnets = array();
         $array_paths_clear = [];
 
+        if($id_files == "Folder"){
+            $files_open = "Folder";
+        }else{
+            $files_open = Files::select('path')->find($id_files);
+        }
+
         foreach($files as $array_path){
-                $paths = $array_path->ruta;
-                $lastSlashPos = strrpos($paths, '/');
-                if ($lastSlashPos !== false) {
-                    $path_clear = substr($paths, 0, $lastSlashPos);
-                    if($path !== null){
-                        $lastpath = strrpos($path_clear, '/');
-                        if ($lastpath == false) {
-                            $array_paths_clear[] = $path_clear;
-                        }
-                    }else{
+            $paths = $array_path->ruta;
+            $lastSlashPos = strrpos($paths, '/');
+            if ($lastSlashPos !== false) {
+                $path_clear = substr($paths, 0, $lastSlashPos);
+                if($path !== null){
+                    $lastpath = strrpos($path_clear, '/');
+                    if ($lastpath == false) {
                         $array_paths_clear[] = $path_clear;
                     }
+                }else{
+                    $array_paths_clear[] = $path_clear;
                 }
+            }  
         }
         $non_repeated_routes =  array_unique($array_paths_clear);
+
+        $array_commnets = array();
+        foreach($non_repeated_routes as $files_description_array){
+            $files_description = Files::select('update_comment', 'updated_at')
+            ->where('id_repo', $id_repo)
+            ->where('ruta', 'like', $files_description_array . '/%')
+            ->orderBy('updated_at', 'desc')
+            ->first();
+            if ($files_description) {
+                // Acceder a las propiedades del modelo y guardar en el array
+                $array_commnets[] = [
+                    'path' => $files_description_array,
+                    'update_comment' => $files_description->update_comment,
+                    'updated_at' => $files_description->updated_at,
+                ];
+            }
+        }
+
         if($path !== null){
-            return view('files.index', compact('files', 'non_repeated_routes','id_repo', 'repository_description'));
+            return view('files.index', compact('files', 'non_repeated_routes','id_repo', 'repository_description', 'array_commnets'));
         }else{
-            return view('files.view', compact('non_repeated_routes','files','files_description', 'files_open'));
+            return view('files.view', compact('non_repeated_routes','files', 'files_open','repository_description', 'id_files', 'id_repo'));
         }
     }
     

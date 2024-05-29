@@ -38,6 +38,14 @@ class RepositoriesController extends Controller
             return view('repositories.index', compact('repositories'));
         }
     }
+    public function checkRepoName(Request $request)
+{
+    $nameRepo = $request->query('name_repo');
+    $exists = Repositories::where('name_repo', $nameRepo)->where('user_id', 1)->exists();
+
+    return response()->json(['exists' => $exists]);
+}
+
     
 
 

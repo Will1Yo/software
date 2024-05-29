@@ -1,0 +1,20 @@
+
+/*////////////////////////////////////////////////////
+CSS de mi vista repositorie.create 
+///////////////////////////////////////////////////*/
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+    display: none; /* Initially hidden */
+    padding-left: 2%;
+}
+
+.input-error {
+    border-color: red;
+}
+
+.input-valid {
+    border-color: green;
+}
