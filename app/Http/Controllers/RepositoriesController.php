@@ -46,6 +46,16 @@ class RepositoriesController extends Controller
     return response()->json(['exists' => $exists]);
 }
 
+public function search(Request $request){
+    $nameRepo = $request->query('name_repo');
+    $repositories = Repositories::select('name_repo', 'id')
+        ->where('name_repo', 'like', '%' . $nameRepo . '%')
+        ->where('user_id', 1)
+        ->get();
+
+    return response()->json(['repositories' => $repositories]);
+}
+
     
 
 

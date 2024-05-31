@@ -19,6 +19,7 @@ CSS de mi vista files.view
     display: block;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 .line-number {
@@ -49,7 +50,7 @@ CSS de mi vista files.view
      left: 0; /* Ajusta según sea necesario */
      width: 30%; /* Ajusta el ancho según sea necesario */
      max-width: 320px; /* Ajusta el ancho máximo según sea necesario */
-     background-color: #f0f0f0; /* Color de fondo */
+     background-color: #161b22; /* Color de fondo */
      padding: 10px; /* Espaciado interno */
      overflow-y: auto;
      /* Elimina la altura del 100% */
@@ -73,7 +74,7 @@ CSS de mi vista files.view
       width: calc(100% - 24%); /* Resta el ancho del contenedor derecho */
       /* Agrega un margen izquierdo para centrar el contenedor */
       margin-left: 24%; /* Igual al ancho del contenedor derecho */
-      background-color: #fff; /* Fondo blanco para el contenedor central */
+      background-color: #161b22; /* Fondo blanco para el contenedor central */
       padding: 10px; /* Espaciado interno */
 }
 .responsive-img {
@@ -109,7 +110,42 @@ CSS de mi vista files.index
     width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
 }
 
+
+/* Área de texto */
 .text_description {
     overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
     resize: none; /* Deshabilitar el redimensionamiento manual por parte del usuario */
+    background-color: #161b22; /* Color de fondo del textarea cuando está habilitado */
+    color: #ffffff; /* Color del texto cuando está habilitado */
+    border: 1px solid #3e434b; /* Color del borde */
+    box-shadow: none;
 }
+
+/* Estilo específico para el textarea deshabilitado */
+.text_description:disabled {
+    background-color: #161b22; /* Cambia este valor al color deseado para el fondo */
+    color: #ffffff; /* Cambia este valor al color deseado para el texto */
+    border-color: #3e434b; /* Cambia este valor al color deseado para el borde */
+}
+
+
+.color_index_folder {
+    background-color: #404652;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+}
+
+.color_index_file {
+    background-color: #2c3644;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+}
+
+.color_folder{
+    color: rgb(99, 63, 170) !important;
+}
+
+.color_file{
+    color: rgb(130, 117, 161) !important;
+}
+

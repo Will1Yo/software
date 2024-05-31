@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     if (data.exists) {
                         messageDiv.style.color = 'red';
-                        messageDiv.textContent = 'Repositorio existente.';
+                        messageDiv.textContent = 'Existente.';
                         messageDiv.style.display = 'block';
                         nameRepoInput.classList.add('input-error');
                         nameRepoInput.classList.remove('input-valid');
                         isNameValid = false;
                     } else {
                         messageDiv.style.color = 'green';
-                        messageDiv.textContent = 'Repositorio disponible';
+                        messageDiv.textContent = 'Disponible';
                         messageDiv.style.display = 'block';
                         nameRepoInput.classList.add('input-valid');
                         nameRepoInput.classList.remove('input-error');

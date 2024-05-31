@@ -10,7 +10,7 @@
         <div class="list-group container-right">
             @foreach ($non_repeated_routes as $file)
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-secondary"><i class="fa-solid fa-folder"></i></i>&nbsp;&nbsp;{{ $file}}  <i style="text-align: left; float:right;" class="fa-solid fa-caret-down"></i></li>
+                    <li class="list-group-item color_index_folder"><i class="fa-solid fa-folder color_folder"></i></i>&nbsp;&nbsp;{{ $file}}  <i style="text-align: left; float:right;" class="fa-solid fa-caret-down "></i></li>
                     @foreach ($files as $array)
                             @if (strpos($array->ruta, '/') !== false)
                                 @php
@@ -31,9 +31,9 @@
                                         @if (strpos($files_path, $array->ruta) !== false)
                                             @if($files_show== $path_file)
                                                 @if ($id_files == $files_id)
-                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-success"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $files_show}}<i class="fa-solid fa-eye" style="text-align: left; float: right;"></i></li></a>
+                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" id="view" style="text-decoration: none;"><li class="list-group-item color_index_file"><i class="fa-solid fa-file color_file"></i>&nbsp;&nbsp;{{ $files_show}}</li></a>
                                                 @else
-                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $files_show}}<i class="fa-solid fa-eye-slash" style="text-align: left; float: right;"></i></li></a>
+                                                    <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item color_index_file"><i class="fa-solid fa-file color_file "></i>&nbsp;&nbsp;{{ $files_show}}</li></a>
                                                 @endif
                                             @endif 
                                         @endif     
@@ -55,9 +55,9 @@
                         <ul class="list-group">
                             @if ($array->files == $file_path)
                                 @if ($id_files == $files_id)
-                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-success"><i class="fa-solid fa-file" ></i>&nbsp;&nbsp;{{ $file_path}}<i class="fa-solid fa-eye" style="text-align: left; float: right;"></i></li></a>
+                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" id="view" style="text-decoration: none;"><li class="list-group-item color_index_file" id="view"><i class="fa-solid fa-file color_file" ></i>&nbsp;&nbsp;{{ $file_path}}</li></a>
                                 @else
-                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $file_path}}<i class="fa-solid fa-eye-slash" style="text-align: left; float: right;"></i></li></a>
+                                <a href="/files/view/{{$files_repo}}/{{$files_id}}" style="text-decoration: none;"><li class="list-group-item color_index_file"><i class="fa-solid fa-file color_file"></i>&nbsp;&nbsp;{{ $file_path}}</li></a>
                                 @endif
                             @endif
                         </ul>  
@@ -72,7 +72,7 @@
         </div>
         <div class="container-center container-lg file-container text-left">
             @if ($files_open == "Folder")
-                <h1 style="text-align: center">Visualización de Repositorio {{$repository_description->name_repo}}</h1>
+                <h1 style="text-align: center; color: white">Visualización de Repositorio {{$repository_description->name_repo}}</h1>
             @else
                 @php
                     // Obtener la ruta del archivo de manera segura

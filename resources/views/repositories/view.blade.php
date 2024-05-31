@@ -6,9 +6,9 @@
     <!-- Puedes agregar más archivos CSS específicos aquí -->
 @endsection
 <x-header-footer>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <div class="col-8">
-            <h1 style="text-align: center"> Vista Previa</h1>
+            <h1 style="color: white"> Vista Previa</h1><br>
             <ul class="list-group">
                 {{-- Dividir los archivos en dos arrays --}}
                 @php
@@ -29,9 +29,9 @@
                 {{-- Mostrar los archivos fusionados --}}
                 @foreach ($mergedFiles as $file)
                     @if (strpos($file, '.') !== false)
-                        <li class="list-group-item list-group-item-light"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;{{ $file}}</li>
+                        <li class="list-group-item color_index_file"><i class="fa-solid fa-file color_file"></i>&nbsp;&nbsp;{{ $file}}</li>
                     @else
-                        <li class="list-group-item list-group-item-secondary"><i class="fa-solid fa-folder"></i></i>&nbsp;&nbsp;{{ $file}}</li>
+                        <li class="list-group-item  color_index_folder"><i class="fa-solid fa-folder color_folder"></i></i>&nbsp;&nbsp;{{ $file}}</li>
                     @endif
                 @endforeach
             </ul>

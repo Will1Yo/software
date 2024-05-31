@@ -17,3 +17,13 @@ document.addEventListener('Fixedtextarea1', function() {
     }
 });
 
+/*////////////////////////////////////////////////////
+JS de mi vista files.view 
+///////////////////////////////////////////////////*/
+document.addEventListener('DOMContentLoaded', function() {
+    var viewLink = document.getElementById('view');
+    if (viewLink) {
+        viewLink.scrollIntoView();
+    }
+});
+

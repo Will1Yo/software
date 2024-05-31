@@ -1,20 +1,146 @@
-
 /*////////////////////////////////////////////////////
-CSS de mi vista repositorie.create 
+CSS de mi vista repositories.create 
 ///////////////////////////////////////////////////*/
 
+/* Contenedor principal */
+.third_container {
+    overflow-x: hidden; /* Oculta el scrollbar horizontal */
+}
+
+/* Color de fondo principal */
+.text_color {
+    background-color: #161b22;
+}
+
+/* Mensaje de error */
 .error-message {
     color: red;
     margin-top: 10px;
     font-size: 14px;
-    display: none; /* Initially hidden */
+    display: none; /* Inicialmente oculto */
     padding-left: 2%;
 }
 
+/* Estilos de inputs */
 .input-error {
     border-color: red;
 }
 
 .input-valid {
     border-color: green;
+}
+
+/* Área de texto */
+.text_description {
+    overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
+    resize: none; /* Deshabilitar el redimensionamiento manual por parte del usuario */
+    background-color: #161b22; /* Cambia el color de fondo del textarea */
+    color: #ffffff; /* Cambia el color del texto */
+    border-color: #3e434b; /* Cambia el color del borde */
+}
+
+/* Asegura que el color de fondo y el color del texto se mantengan cuando se escribe */
+.text_description:focus, 
+.text_description:active {
+    background-color: #161b22; /* Mantiene el color de fondo cuando está enfocado */
+    color: #ffffff; /* Mantiene el color del texto cuando está enfocado */
+    border-color: #3e434b; /* Mantiene el color del borde cuando está enfocado */
+    box-shadow: none; /* Elimina el efecto de sombra */
+}
+
+/* Estilo de la etiqueta del textarea */
+.form-floating label {
+    color: #ffffff; /* Cambia el color del texto de la etiqueta */
+}
+
+/* Contenedor de botones */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Asegura que no haya márgenes adicionales en los botones */
+.btn {
+    margin: 0;
+}
+
+/* Estilos personalizados para la tabla */
+.table.custom-table {
+    background-color: #161b22; /* Cambia el color de fondo de la tabla */
+}
+
+/* Asegúrate de que las celdas y encabezados también tengan el fondo correcto */
+.table.custom-table th,
+.table.custom-table td {
+    background-color: #161b22; /* Color de fondo para las celdas y encabezados */
+    border-color: #3e434b; /* Color de borde para las celdas y encabezados */
+    color: #ffffff; /* Color del texto en las celdas y encabezados */
+}
+
+/* Estilos personalizados para los input-group */
+.input-group-text.color_index {
+    background-color: #161b22; /* Cambia el color de fondo del span */
+    color: #ffffff; /* Cambia el color del texto */
+    border-color: #3e434b; /* Cambia el color del borde */
+}
+
+.input-group .form-control.color_index {
+    background-color: #161b22; /* Cambia el color de fondo del input */
+    color: #ffffff; /* Cambia el color del texto */
+    border-color: #3e434b; /* Cambia el color del borde */
+}
+
+.input-group .form-control.color_index::placeholder {
+    color: #4b4d50; /* Cambia #ff0000 por el color deseado */
+}
+
+/*////////////////////////////////////////////////////
+CSS de mi vista repositories.index 
+///////////////////////////////////////////////////*/
+
+/* Input file button */
+.input-group-text.color_index {
+    background-color: #161b22; /* Cambia el color de fondo del botón */
+    color: #ffffff; /* Cambia el color del texto del botón */
+    border-color: #3e434b; /* Cambia el color del borde del botón */
+}
+
+/* Input file control */
+.input-group .form-control.color_index {
+    background-color: #161b22; /* Cambia el color de fondo del input */
+    color: #ffffff; /* Cambia el color del texto del input */
+    border-color: #3e434b; /* Cambia el color del borde del input */
+}
+
+/* Estilos específicos para el botón de entrada de archivos */
+.input-group .form-control[type="file"] {
+    background-color: #161b22; /* Cambia el color de fondo del botón de archivo */
+    color: #ffffff; /* Cambia el color del texto del botón de archivo */
+    border-color: #3e434b; /* Cambia el color del borde del botón de archivo */
+}
+
+.color_index {
+    background-color: #161b24;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+}
+.color_index_folder {
+    background-color: #404652;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+}
+
+.color_index_file {
+    background-color: #2c3644;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+}
+.color_folder{
+    color: rgb(99, 63, 170) !important;
+}
+
+.color_file{
+    color: rgb(130, 117, 161) !important;
 }

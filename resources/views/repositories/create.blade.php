@@ -6,61 +6,72 @@
     <!-- Puedes agregar más archivos CSS específicos aquí -->
 @endsection
 <x-header-footer>
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <h1 style="text-align: center">Create Repositories</h1>
-            <table class="table table-bordered">
+    <div class="third_container">
+        <div class="row justify-content-center mt-5 third_container ">
+            <div class="col-6">
                 <form action="/repositories" method="POST" id="repo-form">
-                    @csrf
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">Usuario</span>
-                                    <input type="text" class="form-control" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1"  value="Wilson"  disabled>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">Repositorio</span>
-                                    <input type="text" class="form-control" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1"  name="name_repo" id="name_Repo" required>
-                                    <p id="error-message" class="error-message"></p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20%">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Privacidad</h5>
-                                        <p class="card-text">Publico: cualquier persona en Internet puede ver este repositorio. </p>
-                                        <p class="card-text">Privado: tú eliges quién puede ver y comprometerse con este repositorio.. </p>
-                                        <input type="radio" class="btn-check" name="restriction" id="success-outlined" autocomplete="off" value="0" checked>
-                                        <label class="btn btn-outline-success" for="success-outlined">Publico</label>
-                                        <input type="radio" class="btn-check" name="restriction" id="danger-outlined" autocomplete="off" value="1"> 
-                                        <label class="btn btn-outline-danger" for="danger-outlined">Privado</label>
+                     <table class="table custom-table ">
+                        @csrf
+                        <thead>
+                            <tr>
+                                <td colspan="3" class="text_color">
+                                    <h2>Crear nuevo repositorio</h2>
+                                    <p>Un repositorio contiene todos los archivos del proyecto, incluido el historial de revisiones.</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-text color_index" id="basic-addon1">Usuario</span>
+                                        <input type="text" class="form-control color_index" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1" value="Wilson" disabled>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-floating">
-                                    <textarea class="form-control text_description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="description" rows="11" ></textarea>
-                                    <label for="floatingTextarea2">Descripción</label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-success ">Crear Repositorio&nbsp;&nbsp;<i class="fa-solid fa-folder-plus"></i></button>
-                                  </div>
-                            </td>
-                        </tr>
-                    </tbody>                    
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-text color_index" id="basic-addon1">Repositorio</span>
+                                        <input type="text" class="form-control color_index" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1" name="name_repo" id="name_Repo" required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p id="error-message" class="error-message"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Los grandes nombres de repositorios son breves y fáciles de recordar.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="form-floating">
+                                        <textarea class="form-control text_description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="description" rows="3"></textarea>
+                                        <label for="floatingTextarea2">Descripción (opcional)</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="restriction" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1"> &nbsp;<i class="fa-solid fa-book-bookmark"></i>
+                                            Publico: cualquier persona en Internet puede ver este repositorio.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="restriction" type="radio" value="1" name="flexRadioDefault" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2"> &nbsp;<i class="fa-solid fa-lock"></i>
+                                            Privado: tú eliges quién puede ver y comprometerse con este repositorio.
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>                 
+                    </table>
+                    <div class="button-container mt-3">
+                        <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Crear Repositorio&nbsp;&nbsp;</button>
+                    </div>   
                 </form>
-            </table>
-            <div class="mt-3">
-                <a href="/" class="btn btn-primary" tabindex="-1" role="button" ><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
             </div>
         </div>
     </div>
