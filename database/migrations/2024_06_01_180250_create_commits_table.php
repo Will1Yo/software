@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('commits', function (Blueprint $table) {
             $table->id('id');
-            $table->string('files', length: 150);
-            $table->string('ruta', length: 200);
-            $table->string('path', length: 500);
+            $table->text('update_comment');
             $table->integer('commit');
+            $table->string('ruta', length: 200);
+            $table->unsignedBigInteger('id_files'); 
+            $table->foreign('id_files')->references('id')->on('files')->onDelete('cascade');
             $table->unsignedBigInteger('id_repo'); 
             $table->foreign('id_repo')->references('id')->on('repositories')->onDelete('cascade');
             $table->timestamps();
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('commits');
     }
 };

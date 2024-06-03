@@ -110,6 +110,12 @@ CSS de mi vista files.index
     width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 
 /* Área de texto */
 .text_description {

@@ -52,23 +52,22 @@
                 @endphp
             </ul>
             <ul class="list-group">
-                @foreach($files as $file)
-                    @if (strpos($file->ruta, '/') == false)
+                @foreach($commits_and_files as $commit_and_file)
                         @php
-                            echo "<a href='/files/view/{$file->id_repo}/{$file->id}' style='text-decoration: none;'>";
+                            echo "<a href='/files/view/{$id_repo}/{$commit_and_file['id']}' style='text-decoration: none;'>";
                             echo "<li class='list-group-item color_index_file li_responsive'>";
-                            echo "<i class='fa-solid fa-file  color_file'></i >&nbsp;&nbsp;{$file->files}";
-                            echo "<i class='i_file'>{$file->update_comment}</i>";
+                            echo "<i class='fa-solid fa-file  color_file'></i >&nbsp;&nbsp;{$commit_and_file['file']}";
+                            echo "<i class='i_file'>{$commit_and_file['update_comment']}</i>";
                             echo "<i class='fa-solid fa-caret-right i_folder'></i>";
-                            echo "<i class='i_update'>{$file->updated_at}</i>&nbsp;&nbsp;";
+                            echo "<i class='i_update'>{$commit_and_file['updated_at']}</i>&nbsp;&nbsp;";
                             echo "</li></a>";
                         @endphp
-                    @endif
                 @endforeach
             </ul>
-            <div class="mt-3">
+            <div class="button-container mt-3">
                 <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
-            </div>
+                <a  href="/files/update/{{$id_repo}}" class="btn btn-warning" tabindex="-1" role="button"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</a>
+            </div>  
         </div>
     </div>
 

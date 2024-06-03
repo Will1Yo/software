@@ -15,8 +15,14 @@
                         <thead>
                             <tr>
                                 <td colspan="2">
-                                    <h2 style="color: white">Subir Repositorio</h2>
-                                    <p>Al subir un repositorio usted podrá visualizar una vista previa de él.</p>
+                                    @if ($type == 'update')
+                                        <h2 style="color: white">Actualizar Repositorio</h2>
+                                        <p>Al actualizar un repositorio usted podrá visualizar una vista previa de él.</p> 
+                                    @else
+                                        <h2 style="color: white">Subir Repositorio</h2>
+                                        <p>Al subir un repositorio usted podrá visualizar una vista previa de él.</p>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                         </thead>
@@ -38,7 +44,11 @@
                             <td colspan="2">
                                 <div class="form-floating">
                                     <textarea class="form-control text_description" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="update_comment" rows="2" required></textarea>
-                                    <label for="floatingTextarea2">Comentario de inserción (requerido)</label>
+                                    @if ($type == 'update')
+                                        <label for="floatingTextarea2">Comentario de actualización (requerido)</label>
+                                    @else
+                                        <label for="floatingTextarea2">Comentario de inserción (requerido)</label>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -48,7 +58,11 @@
                 </table>
                 <div class="button-container mt-3">
                     <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
-                    <button type="submit" class="btn btn-warning"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Subir Repositorio&nbsp;&nbsp;</button>
+                    @if ($type == 'update')
+                        <button type="submit" class="btn btn-warning"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</button>
+                    @else
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Subir Repositorio&nbsp;&nbsp;</button>
+                    @endif
                 </div>   
             </form>
         </div>
