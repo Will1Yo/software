@@ -1,0 +1,44 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #161b22;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #ffffff; /* Color blanco para el texto principal */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra suave para resaltar el texto */
+}
+
+h4 {
+    color: white; /* Color naranja brillante */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más fuerte para mejor contraste */
+}
+
+p {
+    color: white; /* Color dorado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más fuerte para mejor contraste */
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+}
+
+.container {
+    background-color: #1c1f24; /* Fondo ligeramente más claro para los contenedores */
+    border-left: 4px solid #3e434b; /* Borde izquierdo con el color especificado */
+    padding: 15px;
+    border-radius: 10px; /* Bordes curvos */
+    margin-bottom: 20px; /* Espacio entre contenedores */
+    position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
+}
+
+.chain-container {
+    display: flex; /* Alinea el contenido horizontalmente */
+    align-items: center; /* Alinea verticalmente al centro */
+    margin: -20px 0 20px 0; /* Ajuste de los márgenes para la posición del icono */
+}
+
+.chain-icon {
+    width: 40px; /* Ancho del icono de la cadena */
+    height: 80px; /* Alto del icono de la cadena */
+    background: url('../img/chain.png') no-repeat center center; /* Imagen de cadena */
+    background-size: contain; /* Asegura que la imagen se ajuste dentro del contenedor */
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
