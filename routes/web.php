@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommitsController;
 use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RepositoriesController;
@@ -18,6 +19,6 @@ Route::get('/files/index/{file}', [FilesController::class, 'index']);
 Route::get('/files/view/{file}', [FilesController::class, 'show']);
 Route::get('/files/update/{file}', [FilesController::class, 'update']);
 Route::get('/files/view/{id}/{file}', [FilesController::class, 'show']);
-
+Route::get('/commits/index/{id}', [CommitsController::class, 'index']);
 
 

@@ -57,10 +57,12 @@
                         <input type="text" name="name_repo" value="{{$repositories->name_repo}}" hidden>
                 </table>
                 <div class="button-container mt-3">
-                    <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
+                    
                     @if ($type == 'update')
+                        <a href="/files/index/{{$repositories->id}}"class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
                         <button type="submit" class="btn btn-warning"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</button>
                     @else
+                        <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Subir Repositorio&nbsp;&nbsp;</button>
                     @endif
                 </div>   

@@ -8,7 +8,7 @@
 @endsection
 
 <x-header-footer>
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-5" >
         <div class="col-8">
             <h2 style="color: white">Vista de Repositorios</h2><br>
             <div class="input-group">
@@ -66,6 +66,7 @@
             </ul>
             <div class="button-container mt-3">
                 <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
+                <a href="/commits/index/{{$id_repo}}" class="btn btn-secondary" tabindex="-1" role="button"><i class="fa-solid fa-rotate"></i></i>&nbsp;{{$last_commit->commit}}&nbsp;Commits</a>
                 <a  href="/files/update/{{$id_repo}}" class="btn btn-warning" tabindex="-1" role="button"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</a>
             </div>  
         </div>

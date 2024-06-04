@@ -101,7 +101,7 @@ class FilesController extends Controller
         }
 
         if($path !== null){
-            return view('files.index', compact('files', 'non_repeated_routes','id_repo', 'repository_description', 'array_commnets', 'commits_and_files'));
+            return view('files.index', compact('files', 'non_repeated_routes','id_repo', 'repository_description', 'array_commnets', 'commits_and_files', 'last_commit'));
         }else{
             return view('files.view', compact('non_repeated_routes','files', 'files_open','repository_description', 'id_files', 'id_repo'));
         }
@@ -195,7 +195,9 @@ class FilesController extends Controller
             
             //retornamos a la vista repositories.view para la visualización del repositorio extraido
             $path_view = scandir(public_path("$extractPath/$file_Path_extraction"));
-            return view('repositories.view', ['files' => $path_view]);
+
+            $redirect = $this->show($request->id, "",1);
+            return $redirect;
         } else {
             return redirect("$home?error=Error al abrir el archivo zip");
         }
@@ -390,11 +392,11 @@ class FilesController extends Controller
         }else{
 
             // Paso 1: Obtener todos los registros completos de files_new
+                // Paso 1: Obtener todos los registros completos de files_new
             $files_new = Files::select('id', 'ruta')
             ->where('id_repo', $id_repo)
             ->where('commit', $last_commit)
             ->get();
-
 
             // Paso 2: Obtener todas las rutas del commit anterior
             $before_commit = $last_commit - 1;
@@ -417,10 +419,10 @@ class FilesController extends Controller
             $ruta_new = trim($file_new->ruta);
 
             // Verificar si la ruta del archivo en files_new no está presente en files_old_rutas
-            if (!in_array($ruta_new, array_map('trim', $files_old_rutas))) {
-                // Almacenar la ruta y el ID correspondiente en el array
-                $missing_files[$ruta_new] = $file_new->id;
-            }
+                if (!in_array($ruta_new, array_map('trim', $files_old_rutas))) {
+                    // Almacenar la ruta y el ID correspondiente en el array
+                    $missing_files[$ruta_new] = $file_new->id;
+                }
             }
 
             // Paso 4: Depurar: Mostrar el contenido de missing_files
@@ -435,20 +437,57 @@ class FilesController extends Controller
                     $Save_Commit->ruta = $ruta; // Accediendo directamente a la clave del array
                     $Save_Commit->id_files = $id; // Accediendo directamente a la clave del array
                     $Save_Commit->id_repo = $id_repo;
+                    $Save_Commit->save();
 
                     // Intentar guardar y capturar cualquier excepción
-                    try {
-                        $Save_Commit->save();
-                        // Depurar: Confirmar que se guardó el commit
-                        echo "Commit guardado: Ruta: $ruta, ID: $id\n";
-                    } catch (\Exception $e) {
-                        // Depurar: Mostrar el error si no se pudo guardar
-                        echo "Error guardando commit: " . $e->getMessage() . "\n";
-                    }
+                
                 }
             }
-        
+
+            // Lógica adicional: Encontrar archivos que estaban en el commit anterior pero no en el nuevo
+            $old_missing_files = [];
+
+            $files_new_rutas = $files_new->pluck('ruta')->toArray();
+
+            // Paso 3: Recorrer los archivos en files_old y comparar las rutas
+            foreach ($files_old as $file_old) {
+                // Limpiar espacios en blanco adicionales de la ruta
+                $ruta_old = trim($file_old->ruta);
+
+                // Verificar si la ruta del archivo en files_old no está presente en files_new_rutas
+                if (!in_array($ruta_old, array_map('trim', $files_new_rutas))) {
+                    // Almacenar la ruta en el array
+                    $old_missing_files[] = $ruta_old;
+                }
+            }
+
+            // Paso 4: Depurar: Mostrar el contenido de old_missing_files
+
+            // Paso 5: Guardar los commits si el array old_missing_files no está vacío
+            // Verificar si el array old_missing_files no está vacío
+            if (!empty($old_missing_files)) {
+                foreach ($old_missing_files as $ruta) {
+                    
+                    $files_old = Files::select('id')
+                    ->where('id_repo', $id_repo)
+                    ->where('commit', $before_commit)
+                    ->where('ruta', $ruta)
+                    ->first();
+
+                    $Save_Commit = new Commits();
+                    $Save_Commit->update_comment = $update_comment;
+                    $Save_Commit->commit = $last_commit;
+                    $Save_Commit->ruta = $ruta; // Accediendo directamente a la ruta
+                    $Save_Commit->id_files = $files_old->id;; // No hay ID correspondiente en el nuevo commit
+                    $Save_Commit->id_repo = $id_repo;
+                    $Save_Commit->save();
+
+                    // Intentar guardar y capturar cualquier excepción
+                   
+                }
+            }
+
         }
-        
+    
     }
 }
