@@ -246,7 +246,7 @@ class FilesController extends Controller
             $Save_Commit->id_repo = $request->id;
             $Save_Commit->save();
         } else {
-            $validate_commit = $this->validate_commit($request, $before_num_commit, $file_path, $route_position, $file_Path_extraction);
+            $validate_commit = $this->validate_commit($request, $num_commit, $before_num_commit, $file_path);
             $empty_insert[] = $validate_commit;
             if($validate_commit == true){
                 $file_id = Files::select('id')
@@ -263,97 +263,25 @@ class FilesController extends Controller
         }
     }
     
-    public function validate_commit($request, $num, $file1, $ruta, $file_Path_extraction){
-        $before_extractPath = "Wilson/$request->name_repo$num";
-        $before_files = scandir(public_path("$before_extractPath"));
-    
-        foreach($before_files as $before_file) {
-            if ($before_file != "." && $before_file != "..") {
-                $file_path = public_path("$before_extractPath/$before_file");
-                
-                if (is_dir($file_path)) {
-                    $before_nested_files = scandir($file_path);
-                    foreach ($before_nested_files as $before_nested_file) {
-                        if ($before_nested_file != "." && $before_nested_file != "..") {
-                            $before_nested_file_path = public_path("$before_extractPath/$before_file/$before_nested_file");
-                            
-                            if (is_dir($before_nested_file_path)) {
-                                if ($this->scanAndValidate($before_extractPath, "$before_file/$before_nested_file", $before_nested_file_path, $file_Path_extraction, $file1, $ruta)) {
-                                    return true;
-                                }
-                                $this->scanAndValidate($before_extractPath, "$before_file/$before_nested_file", $before_nested_file_path, $file_Path_extraction, $file1, $ruta);
-                            } else {
-                                $route_position = strpos($before_nested_file_path, $file_Path_extraction);
-                                $route_position = substr($before_nested_file_path, $route_position + 1);
-                                $path_position = strpos($route_position, '/');
-                                $route_position = substr($route_position, $path_position + 1);
-                                if (file_exists($file1) && file_exists($before_nested_file_path)) {
-                                    if(($route_position == $ruta) == true){
-                                        $content1 = file_get_contents($before_nested_file_path);
-                                        $content2 = file_get_contents($file1);
-                                        if ($content1 === $content2) {
-                                            return false;
-                                        } else {
-                                            return true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    $route_position = strpos($file_path, $file_Path_extraction);
-                    $route_position = substr($file_path, $file_Path_extraction + 1);
-                    $path_position = strpos($route_position, '/');
-                    $route_position = substr($route_position, $path_position + 1);
-                    if (file_exists($file1) && file_exists($file_path)) {
-                        if(($route_position == $ruta) == true){
-                            $content1 = file_get_contents($file_path);
-                            $content2 = file_get_contents($file1);
-                            if ($content1 === $content2) {
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        }
-                    }
-                }
+    public function validate_commit($request,  $num_commit, $before_num_commit, $file1){
+        $extractPath = "Wilson/$request->name_repo$num_commit";
+        $before_extractPath = "Wilson/$request->name_repo$before_num_commit";
+        $file2 = str_replace($extractPath, $before_extractPath, $file1);
+
+
+        if (file_exists($file1) && file_exists($file2)) {
+            // Leer contenido de los archivos;
+            $content1 = file_get_contents($file1);
+            $content2 = file_get_contents($file2);
+            if ($content1 === $content2) {
+                return  false;
+            } else {
+                return  true;
             }
         }
-    }
-    
-    private function scanAndValidate($extractPath, $sub_directory, $before_nested_file_path, $file_Path_extraction, $file1, $ruta) {
-        $nested_files = scandir(public_path("$extractPath/$sub_directory"));
-        foreach ($nested_files as $nested_file) {
-            if ($nested_file != "." && $nested_file != "..") {
-                $nested_file_path = public_path("$extractPath/$sub_directory/$nested_file");
-                if (is_dir($nested_file_path)) {
-                    $this->scanAndValidate($extractPath, "$sub_directory/$nested_file", $before_nested_file_path, $file_Path_extraction, $file1, $ruta);
-                } else {
-                    $route_position = strpos($nested_file_path, $file_Path_extraction);
-                    $route_position = substr($nested_file_path, $route_position + 1);
-                    $path_position = strpos($route_position, '/');
-                    $route_position = substr($route_position, $path_position + 1);
-                    if (file_exists($file1) && file_exists($nested_file_path)) {
-                        if(($route_position == $ruta) == true){
-                            $content1 = file_get_contents($nested_file_path);
-                            $content2 = file_get_contents($file1);
-                            if ($content1 === $content2) {
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-
-    
-
-
+        return  true;     
+    }    
+       
     public function open($id_files){
         $files_open = Files::select('path')->find($id_files);
         return view("files.open", compact("files_open"));
@@ -380,45 +308,6 @@ class FilesController extends Controller
             ->where('commit', $before_commit)
             ->get();
 
-            // Convertir files_old a un array simple de rutas
-            $files_old_rutas = $files_old->pluck('ruta')->toArray();
-
-            // Depurar: Mostrar el contenido de files_old y files_old_rutas
-
-
-            $missing_files = [];
-
-            // Paso 3: Recorrer los archivos en files_new y comparar las rutas
-            foreach ($files_new as $file_new) {
-            // Limpiar espacios en blanco adicionales de la ruta
-            $ruta_new = trim($file_new->ruta);
-
-            // Verificar si la ruta del archivo en files_new no está presente en files_old_rutas
-                if (!in_array($ruta_new, array_map('trim', $files_old_rutas))) {
-                    // Almacenar la ruta y el ID correspondiente en el array
-                    $missing_files[$ruta_new] = $file_new->id;
-                }
-            }
-
-            // Paso 4: Depurar: Mostrar el contenido de missing_files
-
-            // Paso 5: Guardar los commits si el array missing_files no está vacío
-            // Verificar si el array missing_files no está vacío
-            if (!empty($missing_files)) {
-                foreach ($missing_files as $ruta => $id) {
-                    $Save_Commit = new Commits();
-                    $Save_Commit->update_comment = $update_comment;
-                    $Save_Commit->commit = $last_commit;
-                    $Save_Commit->ruta = $ruta; // Accediendo directamente a la clave del array
-                    $Save_Commit->id_files = $id; // Accediendo directamente a la clave del array
-                    $Save_Commit->id_repo = $id_repo;
-                    $Save_Commit->save();
-                    $empty_insert[] = true;
-                    // Intentar guardar y capturar cualquier excepción
-                
-                }
-            }
-
             // Lógica adicional: Encontrar archivos que estaban en el commit anterior pero no en el nuevo
             $old_missing_files = [];
 
@@ -435,8 +324,6 @@ class FilesController extends Controller
                     $old_missing_files[] = $ruta_old;
                 }
             }
-
-            // Paso 4: Depurar: Mostrar el contenido de old_missing_files
 
             // Paso 5: Guardar los commits si el array old_missing_files no está vacío
             // Verificar si el array old_missing_files no está vacío
