@@ -181,17 +181,20 @@ class FilesController extends Controller
                 $this->update($request->id, $num_commit_intervalo, $request->update_comment, $empty_insert);
                 if (!in_array(true, $empty_insert, true)) {
                     Files::where('id_repo', $request->id)->where('commit', $num_commit_intervalo)->delete();
+                    $redirect = $this->show($request->id, "",1);
+                    return $redirect;
+                }else{
+                    $path_view = scandir(public_path("$extractPath/$file_Path_extraction"));
+                    return view('repositories.view', ['files' => $path_view, 'id_repo' => $request->id]);
                 }
                 
+            }else{
+                $path_view = scandir(public_path("$extractPath/$file_Path_extraction"));    
+                return view('repositories.view', ['files' => $path_view, 'id_repo' => $request->id]);
             }
             
-            $path_view = scandir(public_path("$extractPath/$file_Path_extraction"));
-    
-            $redirect = $this->show($request->id, "", 1);
-            return $redirect;
-        } else {
-            return redirect("$home?error=Error al abrir el archivo zip");
-        }
+            
+        } 
     }
     
     private function scanAndSaveFiles($repo_id, $extractPath, $sub_directory, $request, $file_Path_extraction, $num_commit, $before_num_commit, &$empty_insert) {

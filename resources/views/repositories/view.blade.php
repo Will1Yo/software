@@ -36,7 +36,7 @@
                 @endforeach
             </ul>
             <div class="mt-3">
-                <a href="/" class="btn btn-primary" tabindex="-1" role="button" ><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Página de Inicio</a>
+                <a href="/files/index/{{$id_repo}}"class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Visualizar</a>
             </div>
         </div>
     </div>
