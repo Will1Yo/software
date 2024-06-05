@@ -38,7 +38,7 @@ class FilesController extends Controller
 
         foreach($latest_files as $last_file){
             if  (strpos($last_file->ruta, '/') == false){
-                $files_description = Commits::select('update_comment', 'updated_at')
+                $files_description = Commits::select('update_comment', 'updated_at', 'commit')
                 ->where('id_repo', $id_repo)
                 ->where('ruta', $last_file->ruta)
                 ->orderBy('commit', 'desc')
@@ -50,6 +50,7 @@ class FilesController extends Controller
                     'ruta' => $last_file->ruta,
                     'update_comment' => $files_description->update_comment,
                     'updated_at' => $files_description->updated_at,
+                    'commit' => $files_description->commit,
                 ];
             }
            
@@ -85,7 +86,7 @@ class FilesController extends Controller
 
         $array_commnets = array();
         foreach($non_repeated_routes as $files_description_array){
-            $folder_description = Commits::select('update_comment', 'updated_at')
+            $folder_description = Commits::select('update_comment', 'updated_at', 'commit')
             ->where('id_repo', $id_repo)
             ->where('ruta', 'like', $files_description_array . '/%')
             ->orderBy('commit', 'desc')
@@ -96,6 +97,7 @@ class FilesController extends Controller
                     'path' => $files_description_array,
                     'update_comment' => $folder_description->update_comment,
                     'updated_at' => $folder_description->updated_at,
+                    'commit' => $folder_description->commit,
                 ];
             }
         }

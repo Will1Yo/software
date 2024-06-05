@@ -42,3 +42,15 @@ p {
     background-size: contain; /* Asegura que la imagen se ajuste dentro del contenedor */
     margin-right: 10px; /* Espacio entre el icono y el texto */
 }
+
+.custom-link {
+    align-items: center;
+    color: white; /* Color blanco por defecto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.custom-link:hover .link-text {
+    color: rgb(86, 86, 240); /* Color azul al pasar el mouse */
+    text-decoration: underline; /* Sin subrayado */
+}
+

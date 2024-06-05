@@ -86,24 +86,51 @@ CSS de mi vista files.view
 CSS de mi vista files.index 
 ///////////////////////////////////////////////////*/
 
-.i_update{
+/* Personalización del enlace para la carpeta */
+.custom-link {
+    align-items: center;
+    color: white; /* Color blanco por defecto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.custom-link:hover .link-text {
+    color: rgb(86, 86, 240); /* Color azul al pasar el mouse */
+    text-decoration: underline; /* Sin subrayado */
+}
+
+.custom-link i {
+    margin-right: 8px; /* Separación del icono y el texto */
+}
+
+/* Personalización del enlace para los commits */
+.custom-link-commit {
+    color: white; /* Color blanco por defecto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.custom-link-commit:hover {
+    color: rgb(86, 86, 240); /* Color azul al pasar el mouse */
+    text-decoration: underline;
+}
+
+/* Otros estilos existentes */
+.i_update {
     text-align: left;
     float: right;
     padding-right: 1%;
 }
 
-.i_folder{
+.i_folder {
     text-align: left;
     float: right;
 }
 
-.i_file{
+.i_file {
     text-align: center;
     padding-left: 10%;
 }
 
-
-.li_responsive{
+.li_responsive {
     white-space: nowrap; /* Evita que el texto se envuelva a la siguiente línea */
     overflow: hidden; /* Oculta el texto que se desborda */
     text-overflow: ellipsis; /* Muestra "..." para el texto que se desborda */
@@ -134,7 +161,6 @@ CSS de mi vista files.index
     border-color: #3e434b; /* Cambia este valor al color deseado para el borde */
 }
 
-
 .color_index_folder {
     background-color: #404652;
     color: white;
@@ -147,11 +173,41 @@ CSS de mi vista files.index
     border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
 }
 
-.color_folder{
+.color_folder {
     color: rgb(99, 63, 170) !important;
 }
 
-.color_file{
+.color_file {
     color: rgb(130, 117, 161) !important;
 }
 
+
+/*////////////////////////////////////////////////////
+CSS de mi vista commit.view 
+///////////////////////////////////////////////////*/
+.diff-container {
+    background-color: #282c34;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+}
+.line-diff {
+    display: block;
+    margin: 0;
+    padding: 5px 0; /* Añadir espacio vertical entre líneas */
+    color: white;
+}
+.line-diff-red {
+    background-color: rgba(255, 0, 0, 0.2);
+    padding-left: 10px; /* Añadir espaciado desde el inicio */
+}
+
+.line-diff-green {
+    background-color: rgba(0, 255, 0, 0.2);
+    padding-left: 10px; /* Añadir espaciado desde el inicio */
+}
+
+.line-diff-white {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 10px; /* Añadir espaciado desde el inicio */
+}

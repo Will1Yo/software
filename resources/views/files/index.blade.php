@@ -35,15 +35,19 @@
                                     foreach ($array_commnets as $comment) {
                                         if ($comment['path'] == $path_clear) {
                                             $folder = "Folder";
-                                            echo "<a href='/files/view/{$id_repo}/{$folder}' style='text-decoration: none;'>";
+                                            echo "<a href='/files/view/{$id_repo}/{$folder}' class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link'>";
                                             echo "<li class='list-group-item color_index_folder li_responsive'>";
-                                            echo "<i class='fa-solid fa-folder color_folder '></i>&nbsp;&nbsp;{$path_clear}";
+                                            echo "<i class='fa-solid fa-folder color_folder'></i><span class='link-text'>{$path_clear}</span>";
+                                            echo "</a>";
+                                            echo "<a class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link-commit' href='/commits/view/{$id_repo}/{$comment['commit']}'>";
                                             echo "<i class='i_file'>{$comment['update_comment']}</i>";
+                                            echo "</a>";
                                             echo "<i class='fa-solid fa-caret-right i_folder'></i>";
                                             echo "<i class='i_update'>{$comment['updated_at']}</i>&nbsp;&nbsp;";
-                                            echo "</li></a>";
+                                            echo "</li>";
                                             $array_paths_clear[] = $path_clear;
                                         }
+
                                     }
                                 } 
                             }
@@ -54,10 +58,13 @@
             <ul class="list-group">
                 @foreach($commits_and_files as $commit_and_file)
                         @php
-                            echo "<a href='/files/view/{$id_repo}/{$commit_and_file['id']}' style='text-decoration: none;'>";
-                            echo "<li class='list-group-item color_index_file li_responsive'>";
-                            echo "<i class='fa-solid fa-file  color_file'></i >&nbsp;&nbsp;{$commit_and_file['file']}";
+                            echo "<a href='/files/view/{$id_repo}/{$commit_and_file['id']}' class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link'>";
+                            echo "<li class='list-group-item color_index_folder li_responsive'>";
+                            echo "<i class='fa-solid fa-folder color_folder'></i><span class='link-text'>{$commit_and_file['file']}</span>";
+                            echo "</a>";
+                            echo "<a class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link-commit'  href='/commits/view/{$id_repo}/{$commit_and_file['commit']}'>";
                             echo "<i class='i_file'>{$commit_and_file['update_comment']}</i>";
+                            echo "</a>";
                             echo "<i class='fa-solid fa-caret-right i_folder'></i>";
                             echo "<i class='i_update'>{$commit_and_file['updated_at']}</i>&nbsp;&nbsp;";
                             echo "</li></a>";

@@ -86,7 +86,9 @@
                         <i style="color: white">{{$fecha}}</i>
                     </div>
                     <div class="w-full container">
-                        <h4 class="text-2xl font-bold">{{$commit['update_comment']}}</h4>
+                        <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link" href="/commits/view/{{$id_repo}}/{{$commit['commit']}}">
+                            <h4 class="text-2xl font-bold link-text">{{$commit['update_comment']}}</h4>
+                        </a>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{$tiempo}}</p>
                     </div>
                 @endforeach
@@ -102,6 +104,6 @@
    @section('custom-js')
    <script src="{{ asset('js/commts.js') }}"></script>
    <!-- Puedes agregar más archivos JS específicos aquí -->
-@endsection
+    @endsection 
 
 </x-header-footer>
