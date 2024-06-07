@@ -185,29 +185,33 @@ CSS de mi vista files.index
 /*////////////////////////////////////////////////////
 CSS de mi vista commit.view 
 ///////////////////////////////////////////////////*/
+/* Estilo para el contenedor de diferencias */
+/* Estilo para el contenedor de diferencias */
 .diff-container {
     background-color: #282c34;
     padding: 10px;
     border-radius: 5px;
     overflow: auto;
 }
+
 .line-diff {
     display: block;
     margin: 0;
-    padding: 5px 0; /* Añadir espacio vertical entre líneas */
+    padding: 5px 0;
     color: white;
 }
+
 .line-diff-red {
     background-color: rgba(255, 0, 0, 0.2);
-    padding-left: 10px; /* Añadir espaciado desde el inicio */
+    padding-left: 10px;
 }
 
 .line-diff-green {
     background-color: rgba(0, 255, 0, 0.2);
-    padding-left: 10px; /* Añadir espaciado desde el inicio */
+    padding-left: 10px;
 }
 
 .line-diff-white {
     background-color: rgba(255, 255, 255, 0.1);
-    padding-left: 10px; /* Añadir espaciado desde el inicio */
+    padding-left: 10px;
 }

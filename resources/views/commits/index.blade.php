@@ -83,13 +83,13 @@
 
                     <div class="chain-container">
                         <span class="chain-icon"></span>
-                        <i style="color: white">{{$fecha}}</i>
+                        <i style="color: white">{{$fecha}}</i>&nbsp;&nbsp; <a href="/commits/delete/{{$id_repo}}/{{$commit['commit']}}"><i class="fa-solid fa-trash" style="color: rgb(209, 31, 31)"></i></a>
                     </div>
                     <div class="w-full container">
                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link" href="/commits/view/{{$id_repo}}/{{$commit['commit']}}">
-                            <h4 class="text-2xl font-bold link-text">{{$commit['update_comment']}}</h4>
+                            <h4 class="text-2xl font-bold link-text">{{$commit['update_comment']}} </h4>
                         </a>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{$tiempo}}</p>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{$tiempo}} </p>
                     </div>
                 @endforeach
                 <div class="mt-5">

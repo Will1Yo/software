@@ -62,7 +62,7 @@
                             echo "<li class='list-group-item color_index_folder li_responsive'>";
                             echo "<i class='fa-solid fa-folder color_folder'></i><span class='link-text'>{$commit_and_file['file']}</span>";
                             echo "</a>";
-                            echo "<a class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link-commit'  href='/commits/view/{$id_repo}/{$commit_and_file['commit']}'>";
+                            echo "<a class='link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link-commit'  href='/commits/view/{$id_repo}/{$commit_and_file['commit']}/{$commit_and_file['id_files']}'>";
                             echo "<i class='i_file'>{$commit_and_file['update_comment']}</i>";
                             echo "</a>";
                             echo "<i class='fa-solid fa-caret-right i_folder'></i>";

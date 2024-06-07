@@ -38,7 +38,7 @@ class FilesController extends Controller
 
         foreach($latest_files as $last_file){
             if  (strpos($last_file->ruta, '/') == false){
-                $files_description = Commits::select('update_comment', 'updated_at', 'commit')
+                $files_description = Commits::select('update_comment', 'updated_at', 'commit', 'id_files')
                 ->where('id_repo', $id_repo)
                 ->where('ruta', $last_file->ruta)
                 ->orderBy('commit', 'desc')
@@ -51,6 +51,7 @@ class FilesController extends Controller
                     'update_comment' => $files_description->update_comment,
                     'updated_at' => $files_description->updated_at,
                     'commit' => $files_description->commit,
+                    'id_files' => $files_description->id_files,
                 ];
             }
            

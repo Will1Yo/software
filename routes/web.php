@@ -21,5 +21,7 @@ Route::get('/files/update/{file}', [FilesController::class, 'update']);
 Route::get('/files/view/{id}/{file}', [FilesController::class, 'show']);
 Route::get('/commits/index/{id}', [CommitsController::class, 'index']);
 Route::get('/commits/view/{id}/{commit}', [CommitsController::class, 'store']);
+Route::get('/commits/view/{id}/{commit}/{files}', [CommitsController::class, 'store']);
+Route::get('/commits/delete/{id}/{commit}', [CommitsController::class, 'delete']);
 
 
