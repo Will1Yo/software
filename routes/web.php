@@ -11,6 +11,7 @@ use function Pest\Laravel\post;
 Route::get('/', [RepositoriesController::class, 'index']);
 Route::get('/repositories/create', [RepositoriesController::class, 'create']);
 Route::post('/repositories/view', [FilesController::class, 'store']);
+Route::get('/repositories/delete/{id}', [RepositoriesController::class, 'delete']);
 Route::get('/repositories/index/{repositories}', [RepositoriesController::class, 'show']);
 Route::post('/repositories', [RepositoriesController::class, 'store']);
 Route::get('/check-repo-name', [RepositoriesController::class, 'checkRepoName'])->name('checkRepoName');

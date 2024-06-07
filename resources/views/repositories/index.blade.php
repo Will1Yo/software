@@ -8,7 +8,7 @@
 <x-header-footer>
     <div class="row justify-content-center mt-5">
         <div class="col-7">
-            <form action="/repositories/view" method="POST" enctype="multipart/form-data">
+            <form action="/repositories/view" method="POST"  id="myForm" enctype="multipart/form-data">
                 <table class="table custom-table">
                         @csrf
                     <tbody>
@@ -60,7 +60,7 @@
                     
                     @if ($type == 'update')
                         <a href="/files/index/{{$repositories->id}}"class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
-                        <button type="submit" class="btn btn-warning"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</button>
+                        <button type="submit" class="btn btn-warning" id="updateButton"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</button>
                     @else
                         <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Subir Repositorio&nbsp;&nbsp;</button>
@@ -69,8 +69,53 @@
             </form>
         </div>
     </div>
+
     @section('custom-js')
         <script src="{{ asset('js/layout.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('myForm');
+                const button = document.getElementById('updateButton');
+
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevenir el envío del formulario
+
+                    // Si el formulario es válido, mostrar SweetAlert
+                    if (form.checkValidity()) {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: "btn btn-success",
+                                cancelButton: "btn btn-danger"
+                            },
+                            buttonsStyling: false
+                        });
+
+                        swalWithBootstrapButtons.fire({
+                            title: "¿Estás seguro?",
+                            text: "¡Podrás revertir tus cambios en el apartado de commits!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Sí, actualiza!",
+                            cancelButtonText: "No, cancélalo!",
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit(); // Enviar el formulario manualmente
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Cancelado",
+                                    text: "No se ha realizado ningún cambio.",
+                                    icon: "info"
+                                });
+                            }
+                        });
+                    } else {
+                        // Mostrar mensajes de validación del navegador
+                        form.reportValidity();
+                    }
+                });
+            });
+        </script>
         <!-- Puedes agregar más archivos JS específicos aquí -->
     @endsection
 </x-header-footer>

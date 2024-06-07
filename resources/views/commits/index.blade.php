@@ -83,7 +83,8 @@
 
                     <div class="chain-container">
                         <span class="chain-icon"></span>
-                        <i style="color: white">{{$fecha}}</i>&nbsp;&nbsp; <a href="/commits/delete/{{$id_repo}}/{{$commit['commit']}}"><i class="fa-solid fa-trash" style="color: rgb(209, 31, 31)"></i></a>
+                        <i style="color: white">{{$fecha}}</i>&nbsp;&nbsp; <i class="fa-solid fa-trash icon-delete" style="color: rgb(216, 101, 101); cursor: pointer;" data-repo="{{$id_repo}}" data-commit="{{$commit['commit']}}" data-comment = "{{$commit['update_comment']}}" ></i>
+
                     </div>
                     <div class="w-full container">
                         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover custom-link" href="/commits/view/{{$id_repo}}/{{$commit['commit']}}">
@@ -103,7 +104,7 @@
 
    @section('custom-js')
    <script src="{{ asset('js/commts.js') }}"></script>
-   <!-- Puedes agregar más archivos JS específicos aquí -->
-    @endsection 
+    @endsection
+
 
 </x-header-footer>

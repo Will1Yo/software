@@ -3,7 +3,7 @@ body {
     background-color: #161b22;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h2, h3, h4{
     font-family: 'Comic Sans MS', cursive, sans-serif;
     color: #ffffff; /* Color blanco para el texto principal */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra suave para resaltar el texto */
@@ -54,3 +54,6 @@ p {
     text-decoration: underline; /* Sin subrayado */
 }
 
+.success{
+    width: 150%;
+}

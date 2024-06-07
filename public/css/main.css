@@ -1,109 +1,127 @@
 /* Asegúrate de que el contenedor principal sea un flex container */
+.hidden {
+    display: none;
+}
+
+/* Otros estilos existentes */
 .second-container {
     display: flex;
-    justify-content: space-between; /* Distribuye los contenedores con espacio entre ellos */
-    align-items: flex-start; /* Alinea los elementos al inicio del contenedor */
+    justify-content: space-between;
+    align-items: flex-start;
     background-color: #0d1117;
-    border: 1px solid #0d1117; /* Añade un borde para visualización, opcional */
-    overflow-x: hidden; /* Oculta el scrollbar horizontal */
-    
+    border: 1px solid #0d1117;
+    overflow-x: hidden;
 }
 
-/* Ajusta el ancho de los contenedores según tus necesidades */
 .container-left,
 .container-right {
-    flex: 1.5; /* Ajusta el ancho automáticamente, ajusta según necesites */
-    max-width: 30%; /* Ajusta el ancho máximo, ajusta según necesites */
-    height: 100vh; /* Hace que los contenedores ocupen toda la altura de la pantalla */
-    
+    flex: 1.5;
+    max-width: 30%;
+    height: 100vh;
 }
 
-.color_index{
+.color_index {
     background-color: #161b24;
     color: white;
-    border: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
-}
-.form-control.color_index::placeholder {
-    color: #3e434b; /* Cambia #ff0000 por el color deseado */
-}
-.list-group-item.color_index {
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-decoration: none; /* Remueve la decoración por defecto */
-}
-.list-group-item.color_index:hover span {
-    text-decoration: underline; /* Agrega la decoración al pasar el mouse */
-}
-.list-group-item.color_index i {
-    margin-right: 0.5rem; /* Añade un espacio entre el icono y el texto */
-}
-.container-center {
-    flex: 4; /* Hace que el contenedor central sea más ancho */
-    max-width: 60%; /* Ajusta el ancho máximo, ajusta según necesites */
-    margin: 0 10px; /* Espacio entre el contenedor central y los contenedores laterales */
-    
+    border: 0.5px solid rgb(119, 117, 117);
 }
 
-/* Añade márgenes o padding según tus necesidades */
+.form-control.color_index::placeholder {
+    color: #3e434b;
+}
+
+.list-group-item.color_index {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-group-item.color_index:hover span {
+    text-decoration: underline;
+}
+
+.repo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.repo-link i {
+    margin-right: 0.5rem;
+}
+
+.trash-icon {
+    cursor: pointer;
+    color: rgb(209, 91, 91) ;
+}
+
+/* Estilos adicionales */
+.container-center {
+    flex: 4;
+    max-width: 60%;
+    margin: 0 10px;
+}
+
 .container-left,
 .container-center,
 .container-right {
     padding: 10px;
-    
-    
 }
 
-/* Elimina los márgenes del body para que los contenedores laterales estén pegados a los bordes de la pantalla */
 body {
     margin: 0;
     padding: 0;
 }
 
-/* Asegúrate de que los contenedores laterales estén pegados a los bordes de la pantalla */
 .container-left {
-    margin-right: auto; /* Empuja el contenedor izquierdo a la izquierda */
+    margin-right: auto;
     overflow-y: auto;
-    overflow-x: hidden; /* Oculta el scrollbar horizontal */
+    overflow-x: hidden;
     background-color: #161b22;
-    border-right: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
-    
+    border-right: 0.5px solid rgb(119, 117, 117);
 }
 
 .container-right {
-    margin-left: auto; /* Empuja el contenedor derecho a la derecha */
-    border-left: 0.5px solid rgb(119, 117, 117); /* Añade un borde blanco de 0.5px */
+    margin-left: auto;
+    border-left: 0.5px solid rgb(119, 117, 117);
 }
 
-/* Botón de altura completa */
 .btn-full-height {
     height: 90% !important;
     width: 80%;
-    font-size: 1rem; /* Ajusta el tamaño de fuente según necesites */
-    line-height: 1; /* Asegura que el texto no tenga espacio adicional alrededor */
-    text-align: center; /* Centra el texto horizontalmente */
+    font-size: 1rem;
+    line-height: 1;
+    text-align: center;
 }
 
-/* Estilo para el botón que muestra solo el texto */
 .btn-text-only {
-    background: none; /* Elimina el fondo */
-    border: none; /* Elimina el borde */
-    color:grey; /* Usa el color del texto inherente */
-    padding: 0; /* Elimina el padding */
-    font: inherit; /* Usa la fuente inherente */
-    cursor: pointer; /* Muestra el cursor de puntero para indicar que es interactivo */
+    background: none;
+    border: none;
+    color: grey;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
 }
-.btn-text-only:hover{
+
+.btn-text-only:hover {
     color: rgb(13, 13, 179);
 }
 
 #results {
     margin-top: 10px;
 }
+
 .repo-item {
     padding: 5px;
     border: 1px solid #ddd;
     margin-bottom: 5px;
     border-radius: 5px;
     background-color: #f9f9f9;
+}
+/* Nueva clase para reducir el espacio de <hr> */
+.small-hr {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #161b24;  /* Puedes ajustar el color y el tamaño según sea necesario */
 }

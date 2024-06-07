@@ -10,12 +10,19 @@ class RepositoriesController extends Controller
 {
     //función que me retorna a la vista principal con un parametro que envía todos los repositorios
     public function index(){
-        $repositories = Repositories::all();
+        $repositories = Repositories::where('user_id', 1)->orderBy('name_repo', 'asc')->get();
         return view('index', compact('repositories'));
     }
     //función que me retorna a la vista de creación de repositorio 
     public function create(){
         return view('repositories.create');
+    }
+
+    public function delete($id){
+        Repositories::where('id', $id)
+        ->delete();
+
+        return $this->index();
     }
     //función create de repositorio
     public function store(Request $request){
@@ -39,24 +46,23 @@ class RepositoriesController extends Controller
         }
     }
     public function checkRepoName(Request $request)
-{
-    $nameRepo = $request->query('name_repo');
-    $exists = Repositories::where('name_repo', $nameRepo)->where('user_id', 1)->exists();
+    {
+        $nameRepo = $request->query('name_repo');
+        $exists = Repositories::where('name_repo', $nameRepo)->where('user_id', 1)->exists();
 
-    return response()->json(['exists' => $exists]);
-}
+        return response()->json(['exists' => $exists]);
+    }
 
-public function search(Request $request){
-    $nameRepo = $request->query('name_repo');
-    $repositories = Repositories::select('name_repo', 'id')
-        ->where('name_repo', 'like', '%' . $nameRepo . '%')
-        ->where('user_id', 1)
-        ->get();
+    public function search(Request $request){
+        $nameRepo = $request->query('name_repo');
+        $repositories = Repositories::select('name_repo', 'id')
+            ->where('name_repo', 'like', '%' . $nameRepo . '%')
+            ->where('user_id', 1)
+            ->get();
 
-    return response()->json(['repositories' => $repositories]);
-}
+        return response()->json(['repositories' => $repositories]);
+    }
 
-    
 
 
 }

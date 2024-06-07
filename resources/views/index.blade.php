@@ -39,23 +39,43 @@
                                 $cont = $cont+1;
                             @endphp
                             @if ($cont <= 7)
-                            <a href="/files/index/{{$repository->id}}" class="list-group-item color_index">
-                                <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
-                                <span>{{$repository->name_repo}}</span>
-                            </a>
+                            <li class="list-group-item color_index d-flex justify-content-between align-items-center">
+                                <a href="/files/index/{{$repository->id}}" class="repo-link">
+                                    <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
+                                    <span>{{$repository->name_repo}}</span>
+                                </a>
+                               <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repository->id}}"></i>
+                            </li>
                             @else
-                            <a href="/files/index/{{$repository->id}}" class="list-group-item Repo_hidden color_index" hidden="true"><i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;{{$repository->name_repo}}</a>
+                            <div class="list-group list-group-flush Repo_hidden" hidden>
+                                <li class="list-group-item color_index d-flex justify-content-between align-items-center">
+                                    <a href="/files/index/{{$repository->id}}" class="repo-link">
+                                        <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
+                                        <span>{{$repository->name_repo}}</span>
+                                    </a>
+                                    <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repository->id}}"></i>
+                                </li>
+                                <hr class="small-hr">
+                            </div>
                             @endif
                         @endforeach
                     </ul>
                     <ul id="results" class="list-group list-group-flush"></ul>
                 </div>
             </div>
+            @if ($cont <= 7)
+                <div class="row mt-2" hidden>
+                    <div class="col-12">
+                        <button type="button" class="btn-text-only" id="showMoreBtn"> Mostrar más</button>
+                    </div>
+                </div>
+            @else
             <div class="row mt-2">
                 <div class="col-12">
                     <button type="button" class="btn-text-only" id="showMoreBtn"> Mostrar más</button>
                 </div>
             </div>
+            @endif
         </div>
         <!-- Contenedor central -->
         <div class="container-center">
@@ -106,5 +126,95 @@
     </div>
     @section('custom-js')
         <script src="{{ asset('js/main.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const repositoryFinderInput = document.getElementById('repository_finder');
+                const resultsDiv = document.getElementById('results');
+                const initialDiv = document.getElementById('inicial');
+        
+                function addDeleteEvent(iconDelete) {
+                    iconDelete.addEventListener('click', function () {
+                        var id_repo = iconDelete.getAttribute('data-id');
+                        Swal.fire({
+                            title: "¿Estás seguro?",
+                            html: "<h4 style='color: red'>Una vez lo borres no podrás recuperar los avances de tu proyecto</h4>",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Sí, borrarlo",
+                            cancelButtonText: "No, cancelar",
+                            reverseButtons: true,
+                            showCloseButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            customClass: {
+                                confirmButton: 'btn btn-success',
+                                cancelButton: 'btn btn-danger'
+                            },
+                            buttonsStyling: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "/repositories/delete/" + id_repo;
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                Swal.fire({
+                                    title: "Cancelado",
+                                    text: "Tu repositorio está seguro :3",
+                                    icon: "info"
+                                });
+                            }
+                        });
+                    });
+                }
+        
+                repositoryFinderInput.addEventListener('input', function () {
+                    const query = repositoryFinderInput.value;
+        
+                    if (query.length > 0) {
+                        fetch(`/search-repositories?name_repo=${query}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                resultsDiv.innerHTML = ''; // Clear previous results
+                                initialDiv.style.display = 'none';
+                                data.repositories.forEach(repo => {
+                                    // Crear elemento <li>
+                                    const repoItem = document.createElement('li');
+                                    repoItem.classList.add('list-group-item', 'color_index', 'd-flex', 'justify-content-between', 'align-items-center');
+                                    
+                                    // Crear elemento <a>
+                                    const repoLink = document.createElement('a');
+                                    repoLink.href = `/files/index/${repo.id}`;
+                                    repoLink.classList.add('repo-link');
+                                    repoLink.innerHTML = `<i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;<span>${repo.name_repo}</span>`;
+        
+                                    // Crear icono de basura
+                                    const trashIcon = document.createElement('i');
+                                    trashIcon.classList.add('fa-solid', 'fa-trash', 'trash-icon', 'icon-delete');
+                                    trashIcon.setAttribute('data-id', repo.id); // Añadir data-id al icono
+        
+                                    // Añadir <a> y el icono de basura al <li>
+                                    repoItem.appendChild(repoLink);
+                                    repoItem.appendChild(trashIcon);
+        
+                                    // Añadir el <li> a resultsDiv
+                                    resultsDiv.appendChild(repoItem);
+        
+                                    // Añadir evento de eliminación al icono
+                                    addDeleteEvent(trashIcon);
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error fetching repositories:', error);
+                            });
+                    } else {
+                        resultsDiv.innerHTML = ''; // Clear results if query is empty
+                        initialDiv.style.display = 'block';
+                    }
+                });
+        
+                // Añadir evento de eliminación a los íconos existentes en la página inicial
+                var iconsDelete = document.querySelectorAll('.icon-delete');
+                iconsDelete.forEach(addDeleteEvent);
+            });
+        </script>
+        
     @endsection
 </x-header-footer>
