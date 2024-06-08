@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('repositories', function (Blueprint $table) {
             $table->id('id');
             $table->string('name_repo', length: 30);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->boolean('restriction');
             $table->unsignedBigInteger('user_id'); 
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->timestamps();
         });

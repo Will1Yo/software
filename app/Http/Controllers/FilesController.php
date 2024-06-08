@@ -6,6 +6,7 @@ use App\Models\Commits;
 use App\Models\Files;
 use App\Models\Repositories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use ZipArchive;
 
 
@@ -115,6 +116,13 @@ class FilesController extends Controller
             ->where('id_repo', $request->id)
             ->orderBy('commit', 'desc')
             ->first();
+        $usuario = DB::table('repositories')
+        ->join('users', 'repositories.user_id', '=', 'users.id')
+        ->where('repositories.id', $request->id)
+        ->select('users.name')
+        ->first();
+        $position = strpos($usuario->name, ' ');
+        $user = substr($usuario->name, 0, $position);
     
         if(is_null($files_find)){
             $num_commit = 1;
@@ -136,7 +144,7 @@ class FilesController extends Controller
         }
         $file->move(public_path('uploads'), $fileName);
     
-        $extractPath = "Wilson/$request->name_repo$num";
+        $extractPath = "$user/$request->name_repo$num";
         $zip = new ZipArchive();
         $empty_insert = [];
         $opened = $zip->open(public_path($destinationPath), ZipArchive::CREATE);
@@ -267,8 +275,16 @@ class FilesController extends Controller
     }
     
     public function validate_commit($request,  $num_commit, $before_num_commit, $file1){
-        $extractPath = "Wilson/$request->name_repo$num_commit";
-        $before_extractPath = "Wilson/$request->name_repo$before_num_commit";
+        $usuario = DB::table('repositories')
+        ->join('users', 'repositories.user_id', '=', 'users.id')
+        ->where('repositories.id', $request->id)
+        ->select('users.name')
+        ->first();
+        $position = strpos($usuario->name, ' ');
+        $user = substr($usuario->name, 0, $position);
+    
+        $extractPath = "$user/$request->name_repo$num_commit";
+        $before_extractPath = "$user/$request->name_repo$before_num_commit";
         $file2 = str_replace($extractPath, $before_extractPath, $file1);
 
 

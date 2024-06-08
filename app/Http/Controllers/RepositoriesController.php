@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commits;
 use App\Models\Files;
 use App\Models\Repositories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
+use function PHPUnit\Framework\isNull;
 
 class RepositoriesController extends Controller
 {
@@ -19,9 +23,28 @@ class RepositoriesController extends Controller
     }
 
     public function delete($id){
+        $Repositorie_name = Repositories::select('name_repo')
+            ->where('id', $id)
+            ->first();
+
+        $last_commit = Commits::select('commit')
+        ->where('id_repo', $id)
+        ->orderBy('commit', 'desc')
+        ->first();
+
+        if(!is_null($last_commit)){
+            for($i = $last_commit->commit; $i > 0; $i--){
+                $directory = public_path("Wilson/{$Repositorie_name->name_repo}$i");
+                File::deleteDirectory($directory);
+            }
+
+            $fileName = $Repositorie_name->name_repo . '.zip';
+            $destinationPath = "uploads/$fileName";
+            unlink($destinationPath);
+        }
+       
         Repositories::where('id', $id)
         ->delete();
-
         return $this->index();
     }
     //función create de repositorio
