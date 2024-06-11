@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\CommitsController;
 use App\Http\Controllers\FilesController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RepositoriesController;
-
-use function Pest\Laravel\post;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', [RepositoriesController::class, 'index']);
 Route::get('/repositories/create', [RepositoriesController::class, 'create']);
@@ -25,4 +24,8 @@ Route::get('/commits/view/{id}/{commit}', [CommitsController::class, 'store']);
 Route::get('/commits/view/{id}/{commit}/{files}', [CommitsController::class, 'store']);
 Route::get('/commits/delete/{id}/{commit}', [CommitsController::class, 'delete']);
 
-
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
