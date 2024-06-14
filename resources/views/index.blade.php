@@ -9,7 +9,7 @@
     <!-- Contenedor principal -->
     <div class="second-container">
         <!-- Contenedor izquierdo -->
-        <div class="container-left">
+        <div class="container-left ">
             <!-- Contenido del contenedor izquierdo -->
             <div>
                 <div class="row mt-4 justify-content-center" style="text-align: center;">
@@ -81,6 +81,8 @@
         <div class="container-center">
             <h3 style="color: white">
                 Home
+                <p>{{ session('user_id') }}</p>
+                <p>{{ session('user_name') }}</p>
             </h3>
             <div class="row">
                 <div class="col-12">

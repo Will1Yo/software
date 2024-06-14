@@ -12,13 +12,13 @@ class RegisteredUserController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        return view('login.login', ['view' => 'register']);
     }
 
     public function store(Request $request)
-    {
+    {   
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -35,6 +35,6 @@ class RegisteredUserController extends Controller
 
         auth()->login($user);
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

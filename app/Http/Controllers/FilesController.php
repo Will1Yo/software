@@ -137,7 +137,7 @@ class FilesController extends Controller
         $file = $request->file('files');
         if(empty($file)) return redirect("$home?error=No se ha recibido un archivo");
     
-        $fileName = $request->name_repo . '.zip';
+        $fileName = $request->name_repo .$user. '.zip';
         $destinationPath = "uploads/$fileName";
         if (file_exists($destinationPath)) {
             unlink($destinationPath);

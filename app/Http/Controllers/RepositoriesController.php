@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commits;
 use App\Models\Files;
 use App\Models\Repositories;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -14,7 +15,7 @@ class RepositoriesController extends Controller
 {
     //función que me retorna a la vista principal con un parametro que envía todos los repositorios
     public function index(){
-        $repositories = Repositories::where('user_id', 1)->orderBy('name_repo', 'asc')->get();
+        $repositories = Repositories::where('user_id', session('user_id'))->orderBy('name_repo', 'asc')->get();
         return view('index', compact('repositories'));
     }
     //función que me retorna a la vista de creación de repositorio 
@@ -34,18 +35,19 @@ class RepositoriesController extends Controller
 
         if(!is_null($last_commit)){
             for($i = $last_commit->commit; $i > 0; $i--){
-                $directory = public_path("Wilson/{$Repositorie_name->name_repo}$i");
+                $name = session('user_name');
+                $directory = public_path("$name/{$Repositorie_name->name_repo}$i");
                 File::deleteDirectory($directory);
             }
 
-            $fileName = $Repositorie_name->name_repo . '.zip';
+            $fileName = $Repositorie_name->name_repo . $name.'.zip';
             $destinationPath = "uploads/$fileName";
             unlink($destinationPath);
         }
        
         Repositories::where('id', $id)
         ->delete();
-        return $this->index();
+        return redirect('/');
     }
     //función create de repositorio
     public function store(Request $request){
@@ -53,7 +55,7 @@ class RepositoriesController extends Controller
         $repositories->name_repo = $request->name_repo;
         $repositories->description = $request->description;
         $repositories->restriction = $request->restriction;
-        $repositories->user_id = 1;
+        $repositories->user_id = session('user_id');
         $repositories->save();
         return redirect('/');
     }
@@ -71,7 +73,7 @@ class RepositoriesController extends Controller
     public function checkRepoName(Request $request)
     {
         $nameRepo = $request->query('name_repo');
-        $exists = Repositories::where('name_repo', $nameRepo)->where('user_id', 1)->exists();
+        $exists = Repositories::where('name_repo', $nameRepo)->where('user_id', session('user_id'))->exists();
 
         return response()->json(['exists' => $exists]);
     }
@@ -80,7 +82,7 @@ class RepositoriesController extends Controller
         $nameRepo = $request->query('name_repo');
         $repositories = Repositories::select('name_repo', 'id')
             ->where('name_repo', 'like', '%' . $nameRepo . '%')
-            ->where('user_id', 1)
+            ->where('user_id', session('user_id'))
             ->get();
 
         return response()->json(['repositories' => $repositories]);
