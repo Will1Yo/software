@@ -81,8 +81,6 @@
         <div class="container-center">
             <h3 style="color: white">
                 Home
-                <p>{{ session('user_id') }}</p>
-                <p>{{ session('user_name') }}</p>
             </h3>
             <div class="row">
                 <div class="col-12">

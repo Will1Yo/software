@@ -1,16 +1,21 @@
-@section('title')
-    Home
-@endsection
-@section('custom-css')
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-    <!-- Puedes agregar más archivos CSS específicos aquí -->
-@endsection
-<x-header-footer>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+</head>
 <body>
     <div class="section">
         <div class="container">
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center py-5">
+                    <h1>Bienvenidos a AurHub &nbsp;<img src="{{ asset('img/icono_principal.jpg') }}" class="rounded-circle" height="60px" width="60px"></h1>
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
                         <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
                             <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" {{ $view == 'register' ? 'checked' : '' }}/>
@@ -100,9 +105,8 @@
                 </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/e8d65d76e0.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-@section('custom-js')
-<script src="{{ asset('js/custom.js') }}"></script>
-<!-- Puedes agregar más archivos JS específicos aquí -->
-@endsection 
-</x-header-footer>
+</html>

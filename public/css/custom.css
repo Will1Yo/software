@@ -37,6 +37,7 @@ CSS de mi vista files.view
     display: flex;
     justify-content: space-between; /* Espacia los contenedores */
     width: 100%;
+    padding-top: 10px;
     max-width: 1340px; /* Ajusta el ancho máximo según tus necesidades */
 }
 .container-right {
@@ -45,7 +46,7 @@ CSS de mi vista files.view
      margin-right: 0;
      /* Agrega posición fija */
      position: fixed;
-     top: 0; /* Ajusta según sea necesario */
+     top: 75px; /* Ajusta según sea necesario */
      bottom: 0; /* Ajusta según sea necesario */
      left: 0; /* Ajusta según sea necesario */
      width: 30%; /* Ajusta el ancho según sea necesario */

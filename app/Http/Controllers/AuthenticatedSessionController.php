@@ -40,6 +40,8 @@ class AuthenticatedSessionController extends Controller
             }
             $request->session()->put([
                 'user_id' => $user_data->id,
+                'user_complete' => $user_data->name,
+                'user_email' => $request->email,
                 'user_name' => $result,
             ]);
             return redirect()->intended('/');
@@ -58,6 +60,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
