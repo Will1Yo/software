@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collaborators;
 use App\Models\Commits;
 use App\Models\Files;
 use App\Models\Repositories;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 use function PHPUnit\Framework\isNull;
@@ -16,7 +18,16 @@ class RepositoriesController extends Controller
     //función que me retorna a la vista principal con un parametro que envía todos los repositorios
     public function index(){
         $repositories = Repositories::where('user_id', session('user_id'))->orderBy('name_repo', 'asc')->get();
-        return view('index', compact('repositories'));
+        $repositories_colla = DB::table('collaborators')
+        ->join('repositories', 'collaborators.id_repo', '=', 'repositories.id')
+        ->select('collaborators.confirmation', 'repositories.id', 'repositories.name_repo')
+        ->where('collaborators.user_id', session('user_id'))
+        ->where('collaborators.confirmation', 1)
+        ->get();
+        $user_id_count = Collaborators::where('user_id', session('user_id'))
+        ->where('confirmation', 0)
+        ->count();
+        return view('index', compact('repositories', 'user_id_count', 'repositories_colla'));
     }
     //función que me retorna a la vista de creación de repositorio 
     public function create(){

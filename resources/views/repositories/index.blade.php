@@ -60,6 +60,7 @@
                     
                     @if ($type == 'update')
                         <a href="/files/index/{{$repositories->id}}"class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>
+                        <a href="/collaborators/index/{{$repositories->id}}" class="btn btn-info" tabindex="-1" role="button"><i class="fa-solid fa-users"></i></i>&nbsp;&nbsp;Gestión de Colaboradores</a>
                         <button type="submit" class="btn btn-warning" id="updateButton"><i class="fa-solid fa-book"></i>&nbsp;&nbsp;Actualizar Repositorio&nbsp;&nbsp;</button>
                     @else
                         <a href="/" class="btn btn-primary" tabindex="-1" role="button"><i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;Regresar</a>

@@ -96,32 +96,93 @@
         </div>
         <!-- Contenedor derecho -->
         <div class="container-right">
-            <div class="row mt-3">
+            <!-- Contenido del contenedor izquierdo -->
+            <div>
+                <div class="row mt-4 justify-content-center" style="text-align: center;">
+                    <div class="col-12">
+                        <h5 style="color: white">Repositorios Compartidos</h5>
+                    </div>
+                </div>
+                <div class="row justify-content-center" style="text-align: center;">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Notificaciones: {{$user_id_count}}
+                          </button>
+                    </div>
+                </div>     
+            </div>
+            <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card color_index" style="width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="card-link">Card link</a>
-                          <a href="#" class="card-link">Another link</a>
-                        </div>
-                      </div>
+                    <input type="text" class="form-control color_index" placeholder="Buscar un repositorio..." aria-label="Username" aria-describedby="basic-addon1" id="repository_finder">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-12">
-                    <div class="card color_index" style="width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="card-link">Card link</a>
-                          <a href="#" class="card-link">Another link</a>
-                        </div>
-                      </div>
+                    <ul class="list-group list-group-flush"  id="inicial">
+                        @php
+                            $cont = 0;
+                        @endphp
+                        @foreach ($repositories_colla as $repositories_coll)
+                            @php
+                                $cont = $cont+1;
+                            @endphp
+                            @if ($cont <= 7)
+                            <li class="list-group-item color_index d-flex justify-content-between align-items-center">
+                                <a href="/files/index/{{$repositories_coll->id}}" class="repo-link">
+                                    <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
+                                    <span>{{$repositories_coll->name_repo}}</span>
+                                </a>
+                               <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->id}}"></i>
+                            </li>
+                            @else
+                            <div class="list-group list-group-flush Repo_hidden" hidden>
+                                <li class="list-group-item color_index d-flex justify-content-between align-items-center">
+                                    <a href="/files/index/{{$repositories_coll->id}}" class="repo-link">
+                                        <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
+                                        <span>{{$repositories_coll->name_repo}}</span>
+                                    </a>
+                                    <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->id}}"></i>
+                                </li>
+                                <hr class="small-hr">
+                            </div>
+                            @endif
+                        @endforeach
+                    </ul>
+                    <ul id="results" class="list-group list-group-flush"></ul>
                 </div>
             </div>
+            @if ($cont <= 7)
+                <div class="row mt-2" hidden>
+                    <div class="col-12">
+                        <button type="button" class="btn-text-only" id="showMoreBtn"> Mostrar más</button>
+                    </div>
+                </div>
+            @else
+            <div class="row mt-2">
+                <div class="col-12">
+                    <button type="button" class="btn-text-only" id="showMoreBtn"> Mostrar más</button>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+        <!-- Modal -->
+        <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
         </div>
     </div>
     @section('custom-js')

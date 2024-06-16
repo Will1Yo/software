@@ -6,6 +6,7 @@ use App\Http\Controllers\RepositoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\CollaboratorsController;
 
 Route::get('/', [RepositoriesController::class, 'index']);
 Route::get('/repositories/create', [RepositoriesController::class, 'create']);
@@ -23,6 +24,11 @@ Route::get('/commits/index/{id}', [CommitsController::class, 'index']);
 Route::get('/commits/view/{id}/{commit}', [CommitsController::class, 'store']);
 Route::get('/commits/view/{id}/{commit}/{files}', [CommitsController::class, 'store']);
 Route::get('/commits/delete/{id}/{commit}', [CommitsController::class, 'delete']);
+Route::get('/collaborators/index/{id}', [CollaboratorsController::class, 'index']);
+Route::get('/collaborators/index/{id}/{user}', [CollaboratorsController::class, 'create']);
+Route::get('/collaborators/delete/{id}/{user}', [CollaboratorsController::class, 'delete']);
+Route::get('/search-collaborators', [CollaboratorsController::class, 'search']);
+Route::get('/search-users', [CollaboratorsController::class, 'search']);
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);

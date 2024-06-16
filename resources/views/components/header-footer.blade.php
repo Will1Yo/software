@@ -91,10 +91,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div style="padding-left: 57%">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 150%">
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="padding-left: 10%">
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown" style="padding-left: 82%">
                         <img src="{{ asset('img/user_img.png') }}" class="rounded-circle" height="40px" width="40px" id="img"  style="cursor: pointer;">
                     </div>
                 </div>
@@ -120,6 +117,9 @@
     </div>
 
     {{$slot}}
+
+
+
     <footer>
     </footer>
     @yield('custom-js') <!-- Sección para JS personalizado -->

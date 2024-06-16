@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Collaborators;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ class AuthenticatedSessionController extends Controller
                 // Si no hay espacio, devolver la cadena completa
                 $result = $user_data->name;
             }
+           
             $request->session()->put([
                 'user_id' => $user_data->id,
                 'user_complete' => $user_data->name,

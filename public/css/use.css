@@ -1,0 +1,111 @@
+.color_text{
+    color: white;
+}
+
+.modal-content {
+    background-color: #161b22;
+    color: white;
+    border: none;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: white!important;
+}
+
+.search-input {
+    background-color: #0d1117;
+    color: white;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.color_index {
+    background-color: #161b24;
+    color: white;
+    border: 0.5px solid rgb(119, 117, 117);
+}
+
+.form-control.color_index::placeholder {
+    color: #3e434b;
+}
+
+
+.search-input::placeholder {
+    color: #8b949e;
+}
+
+.modal-footer .btn {
+    background-color: #2ea043;
+    border-color: #2ea043;
+}
+
+.list-group-item {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    margin-bottom: 5px;
+}
+
+.repo-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+
+.user-avatar {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    margin-right: auto;
+}
+
+.user-nickname {
+    color: #8b949e;
+}
+
+.table.custom-table {
+    background-color: #161b22; /* Cambia el color de fondo de la tabla */
+    border-color: #3e434b;
+}
+
+/* Asegúrate de que las celdas y encabezados también tengan el fondo correcto */
+.table.custom-table th,
+.table.custom-table td {
+    background-color: #161b22; /* Color de fondo para las celdas y encabezados */
+    border-color: #3e434b; /* Color de borde para las celdas y encabezados */
+    color: #ffffff; /* Color del texto en las celdas y encabezados */
+}
+
+.trash-icon {
+    color: red !important;
+    cursor: pointer;
+}
+
+.d-flex.align-items-center.justify-content-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-details small {
+    display: inline;
+}
+
