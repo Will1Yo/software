@@ -20,7 +20,12 @@ class FilesController extends Controller
         }else{
             $repositories = Repositories::find($id_repo);
             $type = "create";
-            return view('repositories.index', compact('repositories','type'));
+            $admin = DB::table('users')
+            ->join('repositories', 'users.id', '=', 'repositories.user_id')
+            ->where('repositories.id', $id_repo)
+            ->select('users.id')
+            ->first();
+            return view('repositories.index', compact('repositories','type', 'admin'));
         }
     }
 
@@ -122,7 +127,14 @@ class FilesController extends Controller
         ->select('users.name')
         ->first();
         $position = strpos($usuario->name, ' ');
-        $user = substr($usuario->name, 0, $position);
+
+        if ($position !== false) {
+            // Si se encontró un espacio, obtiene la subcadena desde el inicio hasta el primer espacio
+            $user = substr($usuario->name, 0, $position);
+        } else {
+            // Si no se encontró un espacio, usa el nombre completo
+            $user = $usuario->name;
+        }
     
         if(is_null($files_find)){
             $num_commit = 1;
@@ -310,7 +322,12 @@ class FilesController extends Controller
         if($last_commit == null){
             $repositories = Repositories::find($id_repo);
             $type = "update";
-            return view('repositories.index', compact('repositories', 'type'));
+            $admin = DB::table('users')
+            ->join('repositories', 'users.id', '=', 'repositories.user_id')
+            ->where('repositories.id', $id_repo)
+            ->select('users.id')
+            ->first();
+            return view('repositories.index', compact('repositories', 'type', 'admin'));
         }else{
 
             // Paso 1: Obtener todos los registros completos de files_new

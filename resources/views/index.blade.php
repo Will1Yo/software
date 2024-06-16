@@ -126,26 +126,28 @@
                             @php
                                 $cont = $cont+1;
                             @endphp
-                            @if ($cont <= 7)
-                            <li class="list-group-item color_index d-flex justify-content-between align-items-center">
-                                <a href="/files/index/{{$repositories_coll->id}}" class="repo-link">
-                                    <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
-                                    <span>{{$repositories_coll->name_repo}}</span>
-                                </a>
-                               <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->id}}"></i>
-                            </li>
-                            @else
-                            <div class="list-group list-group-flush Repo_hidden" hidden>
+                            @if ($repositories_coll->confirmation == 1)
+                                @if ($cont <= 7)
                                 <li class="list-group-item color_index d-flex justify-content-between align-items-center">
-                                    <a href="/files/index/{{$repositories_coll->id}}" class="repo-link">
+                                    <a href="/files/index/{{$repositories_coll->repo_id}}" class="repo-link">
                                         <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
                                         <span>{{$repositories_coll->name_repo}}</span>
                                     </a>
-                                    <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->id}}"></i>
+                                <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->repo_id}}"></i>
                                 </li>
-                                <hr class="small-hr">
-                            </div>
-                            @endif
+                                @else
+                                <div class="list-group list-group-flush Repo_hidden" hidden>
+                                    <li class="list-group-item color_index d-flex justify-content-between align-items-center">
+                                        <a href="/files/index/{{$repositories_coll->id}}" class="repo-link">
+                                            <i class="fa-solid fa-book-bookmark"></i>&nbsp;&nbsp;
+                                            <span>{{$repositories_coll->name_repo}}</span>
+                                        </a>
+                                        <i class="fa-solid fa-trash trash-icon icon-delete" data-id = "{{$repositories_coll->id}}"></i>
+                                    </li>
+                                    <hr class="small-hr">
+                                </div>
+                                @endif
+                            @endif  
                         @endforeach
                     </ul>
                     <ul id="results" class="list-group list-group-flush"></ul>
@@ -172,15 +174,30 @@
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Invitación de Colaboraciones</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            ...
+                @foreach ($repositories_colla as $repositories_coll)
+                    @if ($repositories_coll->confirmation == 0)
+                    <div class="d-flex ">
+                        <img src="{{ asset('img/user_img.png') }}" alt="Nombre del Usuario" class="rounded-circle user-avatar" width="40px" height="40px">
+                        <div class="user-info">
+                            <span class="user-name">El usuario <B>{{$repositories_coll->name}} </B> te ha invitado a colaborar al repositorio <B>{{$repositories_coll->name_repo}}</B> </span>
+                            <small> 
+                                    <small style="color: rgb(202, 102, 102)">* Pendiente de confirmación:</small> 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/confirmation/{{$repositories_coll->id}}" style="text-decoration: none; color: rgb(91, 204, 91)" >Confirmar&nbsp;<i class="fa-solid fa-check" style="color: green;"> </i></a> &nbsp;
+                                    <a href="/decline/{{$repositories_coll->id}}"  style="text-decoration: none; color: rgb(243, 4, 4)" >Rechazar&nbsp;<i class="fa-solid fa-xmark" style="color: red"></i></a>
+                            </small>
+                           
+                        </div>
+                    </div>
+                    <hr>
+                    @endif  
+                @endforeach
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <div class="modal-footer" style="border: none">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
         </div>

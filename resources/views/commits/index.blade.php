@@ -83,7 +83,9 @@
 
                     <div class="chain-container">
                         <span class="chain-icon"></span>
-                        <i style="color: white">{{$fecha}}</i>&nbsp;&nbsp; <i class="fa-solid fa-trash icon-delete" style="color: rgb(216, 101, 101); cursor: pointer;" data-repo="{{$id_repo}}" data-commit="{{$commit['commit']}}" data-comment = "{{$commit['update_comment']}}" ></i>
+                        <i style="color: white">{{$fecha}}</i>&nbsp;&nbsp; @if (($admin->id == session('user_id')))
+                        <i class="fa-solid fa-trash icon-delete" style="color: rgb(216, 101, 101); cursor: pointer;" data-repo="{{$id_repo}}" data-commit="{{$commit['commit']}}" data-comment = "{{$commit['update_comment']}}" ></i>
+                        @endif
 
                     </div>
                     <div class="w-full container">

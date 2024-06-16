@@ -11,6 +11,8 @@ use App\Http\Controllers\CollaboratorsController;
 Route::get('/', [RepositoriesController::class, 'index']);
 Route::get('/repositories/create', [RepositoriesController::class, 'create']);
 Route::post('/repositories/view', [FilesController::class, 'store']);
+Route::get('/confirmation/{id}', [RepositoriesController::class, 'collaborator_confirmation']);
+Route::get('/decline/{id}', [RepositoriesController::class, 'collaborator_decline']);
 Route::get('/repositories/delete/{id}', [RepositoriesController::class, 'delete']);
 Route::get('/repositories/index/{repositories}', [RepositoriesController::class, 'show']);
 Route::post('/repositories', [RepositoriesController::class, 'store']);
@@ -29,7 +31,6 @@ Route::get('/collaborators/index/{id}/{user}', [CollaboratorsController::class, 
 Route::get('/collaborators/delete/{id}/{user}', [CollaboratorsController::class, 'delete']);
 Route::get('/search-collaborators', [CollaboratorsController::class, 'search']);
 Route::get('/search-users', [CollaboratorsController::class, 'search']);
-
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

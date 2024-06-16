@@ -25,7 +25,7 @@
                                 <td>
                                     <div class="input-group">
                                         <span class="input-group-text color_index" id="basic-addon1">Usuario</span>
-                                        <input type="text" class="form-control color_index" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1" value="Wilson" disabled>
+                                        <input type="text" class="form-control color_index" placeholder="Nombre de repositorio" aria-label="Username" aria-describedby="basic-addon1" value="{{ session('user_name')}}" disabled>
                                     </div>
                                 </td>
                                 <td>

@@ -20,13 +20,15 @@ class RepositoriesController extends Controller
         $repositories = Repositories::where('user_id', session('user_id'))->orderBy('name_repo', 'asc')->get();
         $repositories_colla = DB::table('collaborators')
         ->join('repositories', 'collaborators.id_repo', '=', 'repositories.id')
-        ->select('collaborators.confirmation', 'repositories.id', 'repositories.name_repo')
+        ->join('users', 'repositories.user_id', '=', 'users.id')
+        ->select('collaborators.confirmation', 'repositories.id as repo_id', 'repositories.name_repo', 'users.id', 'users.name', 'users.email', 'collaborators.id' )
         ->where('collaborators.user_id', session('user_id'))
-        ->where('collaborators.confirmation', 1)
         ->get();
         $user_id_count = Collaborators::where('user_id', session('user_id'))
         ->where('confirmation', 0)
         ->count();
+
+
         return view('index', compact('repositories', 'user_id_count', 'repositories_colla'));
     }
     //función que me retorna a la vista de creación de repositorio 
@@ -78,6 +80,7 @@ class RepositoriesController extends Controller
 
         }else{
             $repositories = Repositories::find($id_repo);
+
             return view('repositories.index', compact('repositories'));
         }
     }
@@ -99,6 +102,17 @@ class RepositoriesController extends Controller
         return response()->json(['repositories' => $repositories]);
     }
 
+    public function collaborator_confirmation($id_collaborators){
+        $collaborator = Collaborators::find($id_collaborators);
+        $collaborator->confirmation = true;
+        $collaborator->save();
+        return redirect('/');
+    }
 
+    public function collaborator_decline($id_collaborators){
+        Collaborators::where('id', $id_collaborators)
+        ->delete();
+        return redirect('/');
+    }
 
 }

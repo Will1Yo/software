@@ -126,3 +126,37 @@ body {
     border: 0;
     border-top: 1px solid #161b24;  /* Puedes ajustar el color y el tamaño según sea necesario */
 }
+
+/* Color de fondo y texto del encabezado del modal */
+.modal-header {
+    background-color: #161b22;
+    border-bottom: 1px solid #3e434b;
+}
+
+.modal-header .modal-title {
+    color: #ffffff;
+}
+
+/* Color de fondo y texto del cuerpo del modal */
+.modal-body {
+    background-color: #161b22;
+    color: #ffffff;
+}
+
+/* Color de fondo y texto del pie de página del modal */
+.modal-footer {
+    background-color: #161b22;
+    border-top: 1px solid #3e434b;
+}
+
+/* Borde del contenido del modal */
+.modal-content {
+    border: 1px solid #3e434b;
+    background-color: #161b22; /* Aseguramos que todo el fondo del contenido sea del color deseado */
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2%;
+}

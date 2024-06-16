@@ -32,8 +32,14 @@ class CommitsController extends Controller
                     ];
                 }
             }
+            $admin = DB::table('users')
+            ->join('repositories', 'users.id', '=', 'repositories.user_id')
+            ->where('repositories.id', $id_repo)
+            ->select('users.id')
+            ->first();
+
         }
-        return view('commits.index', compact('commits', 'id_repo'));
+        return view('commits.index', compact('commits', 'id_repo', 'admin'));
     }
 
     public function store($id_repo, $commit, $id_files = null)
